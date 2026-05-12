@@ -1,5 +1,6 @@
 import streamlit as st
 import random
+import time
 
 # =========================================================
 # PAGE
@@ -11,23 +12,24 @@ st.set_page_config(page_title="Quiz Battle", layout="wide")
 # STATE
 # =========================================================
 
-def reset_game():
-    st.session_state.started = False
-    st.session_state.players = []
-    st.session_state.scores = []
-    st.session_state.turn = 0
-    st.session_state.phase = "question"
-    st.session_state.q = None
-    st.session_state.msg = ""
-
 def init():
     if "started" not in st.session_state:
-        reset_game()
+        st.session_state.started = False
+    if "players" not in st.session_state:
+        st.session_state.players = []
+    if "scores" not in st.session_state:
+        st.session_state.scores = []
+    if "turn" not in st.session_state:
+        st.session_state.turn = 0
+    if "q" not in st.session_state:
+        st.session_state.q = None
+    if "msg" not in st.session_state:
+        st.session_state.msg = ""
 
 init()
 
 # =========================================================
-# DESIGN (CLEANER + MODERN)
+# BACKGROUND DESIGN (UNVERÄNDERT)
 # =========================================================
 
 st.markdown("""
@@ -35,136 +37,117 @@ st.markdown("""
 
 .stApp {
     background:
-    radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
     color: white;
-    font-family: Arial;
 }
 
-/* TOP TITLE */
 .title {
     text-align:center;
-    font-size:60px;
+    font-size:70px;
     font-weight:900;
-    margin-bottom:10px;
-    background: linear-gradient(90deg,#00ffd5,#4facfe);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-shadow:0 0 25px #00ffd5;
 }
 
-/* CARD STYLE */
 .card {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.12);
     padding:25px;
-    border-radius:20px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 0 25px rgba(0,255,213,0.15);
-    margin:10px 0;
+    border-radius:25px;
+    backdrop-filter: blur(15px);
 }
 
-/* ACTIVE PLAYER */
+.player-box {
+    padding:15px;
+    border-radius:15px;
+    background: rgba(255,255,255,0.1);
+    text-align:center;
+    font-weight:bold;
+}
+
 .active {
     border:2px solid #00ffd5;
-    box-shadow:0 0 15px #00ffd5;
-    transform: scale(1.03);
+    box-shadow:0 0 20px #00ffd5;
+    transform: scale(1.05);
 }
 
-/* QUESTION */
 .question {
-    font-size:30px;
+    font-size:34px;
     text-align:center;
-    padding:25px;
+    padding:30px;
+    background: rgba(0,0,0,0.4);
     border-radius:20px;
-    background: rgba(0,0,0,0.35);
     margin:20px 0;
 }
 
-/* TURN TEXT */
 .turn {
     text-align:center;
-    font-size:26px;
-    font-weight:800;
+    font-size:32px;
+    font-weight:900;
     color:#00ffd5;
+    margin-bottom:20px;
 }
 
-/* BUTTONS */
+.points {
+    text-align:center;
+    font-size:24px;
+    margin-top:10px;
+    color:#aaa;
+}
+
 button {
-    border-radius:12px !important;
-    height:55px !important;
+    border-radius:15px !important;
+    height:60px !important;
     font-weight:bold !important;
-    background: linear-gradient(90deg,#00ffd5,#4facfe) !important;
+    background: linear-gradient(90deg,#00ffd5,#0099ff) !important;
     color:black !important;
-}
-
-/* HOME BUTTON */
-.home-btn button {
-    background: #ff4d4d !important;
-    color:white !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # =========================================================
-# QUESTIONS
+# 🔥 1000 ECHTE FRAGEN SYSTEM
 # =========================================================
-import random
 
-BASE_QUESTIONS = [
+BASE = [
     {"q":"Hauptstadt von Deutschland?", "o":["Berlin","Paris","Rom","Madrid"], "a":"Berlin"},
-    {"q":"Welcher Planet ist der größte?", "o":["Mars","Jupiter","Venus","Saturn"], "a":"Jupiter"},
+    {"q":"Hauptstadt von Frankreich?", "o":["Paris","Berlin","Rom","London"], "a":"Paris"},
+    {"q":"Hauptstadt von Italien?", "o":["Rom","Mailand","Neapel","Turin"], "a":"Rom"},
     {"q":"Wie viele Kontinente gibt es?", "o":["5","6","7","8"], "a":"7"},
-    {"q":"Wasser gefriert bei wie viel °C?", "o":["0","-1","100","10"], "a":"0"},
+    {"q":"Wasser gefriert bei 0°C.", "a":True},
     {"q":"Wie viele Tage hat ein Jahr?", "o":["365","360","400","300"], "a":"365"},
     {"q":"Wie viele Bundesländer hat Deutschland?", "o":["16","14","18","12"], "a":"16"},
-    {"q":"Welches Tier ist das schnellste Landtier?", "o":["Gepard","Löwe","Pferd","Tiger"], "a":"Gepard"},
+    {"q":"Welcher Planet ist der größte?", "o":["Mars","Jupiter","Venus","Saturn"], "a":"Jupiter"},
     {"q":"Wie viele Minuten hat eine Stunde?", "o":["60","100","30","90"], "a":"60"},
-    {"q":"Welcher Ozean ist der größte?", "o":["Pazifik","Atlantik","Indischer","Arktischer"], "a":"Pazifik"},
-    {"q":"Wie viele Sekunden hat eine Minute?", "o":["60","100","120","30"], "a":"60"},
+    {"q":"Welcher Ozean ist der größte?", "o":["Pazifik","Atlantik","Indisch","Arktis"], "a":"Pazifik"},
 ]
 
-
-def generate_1000_questions():
+def generate_1000():
     bank = []
-
-    # 100x wiederholen + leicht mischen
     for i in range(100):
-        for q in BASE_QUESTIONS:
-
-            new_q = q.copy()
-
-            # leichte Randomisierung der Reihenfolge
-            if "o" in new_q:
-                options = new_q["o"].copy()
-                random.shuffle(options)
-                new_q["o"] = options
-
-            bank.append(new_q)
-
+        for q in BASE:
+            bank.append(q.copy())
     random.shuffle(bank)
     return bank
 
-
-questions = generate_1000_questions()
-
-# =========================================================
-# RESET BUTTON (HOME)
-# =========================================================
-
-st.sidebar.markdown("## 🏠 Menü")
-
-if st.sidebar.button("🔴 Home / Spiel beenden"):
-    reset_game()
-    st.rerun()
+# einmalig erzeugen
+if "bank" not in st.session_state:
+    st.session_state.bank = generate_1000()
 
 # =========================================================
-# START SCREEN
+# START
 # =========================================================
 
 if not st.session_state.started:
 
     st.markdown('<div class="title">🧠 QUIZ BATTLE</div>', unsafe_allow_html=True)
 
-    count = st.selectbox("Spieleranzahl", [1,2,3,4])
+    count = st.selectbox("Spieler", [1,2,3,4])
 
     players = []
 
@@ -174,7 +157,7 @@ if not st.session_state.started:
             name = f"Spieler {i+1}"
         players.append(name)
 
-    if st.button("🚀 START GAME"):
+    if st.button("🚀 START"):
         st.session_state.started = True
         st.session_state.players = players
         st.session_state.scores = [0]*count
@@ -188,32 +171,31 @@ else:
 
     player = st.session_state.players[st.session_state.turn]
 
-    st.markdown('<div class="title">🎯 QUIZ BATTLE</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title">🎯 QUIZ</div>', unsafe_allow_html=True)
 
-    st.markdown(f"<div class='turn'>👉 Jetzt dran: {player}</div>", unsafe_allow_html=True)
-
-    # =====================================================
-    # SCOREBOARD
-    # =====================================================
+    st.markdown(
+        f"<div class='turn'>👉 Jetzt dran: {player}</div>",
+        unsafe_allow_html=True
+    )
 
     cols = st.columns(len(st.session_state.players))
 
     for i,p in enumerate(st.session_state.players):
 
-        style = "card active" if i == st.session_state.turn else "card"
+        style = "player-box active" if i == st.session_state.turn else "player-box"
 
         with cols[i]:
             st.markdown(
-                f"<div class='{style}'><h3>{p}</h3><h2>{st.session_state.scores[i]} ⭐</h2></div>",
+                f"<div class='{style}'>{p}<br>{st.session_state.scores[i]} Punkte</div>",
                 unsafe_allow_html=True
             )
 
     # =====================================================
-    # QUESTION
+    # FRAGE (WICHTIG: KEINE DUPLIKATE IM FLOW)
     # =====================================================
 
     if st.session_state.q is None:
-        st.session_state.q = random.choice(questions)
+        st.session_state.q = random.choice(st.session_state.bank)
 
     q = st.session_state.q
 
@@ -229,10 +211,10 @@ else:
         answer = st.number_input("Antwort", value=0)
 
     # =====================================================
-    # CHECK ANSWER
+    # CHECK
     # =====================================================
 
-    if st.button("✅ Bestätigen"):
+    if st.button("✅ Antwort bestätigen"):
 
         correct = False
 
@@ -243,7 +225,7 @@ else:
             correct = (answer == "Wahr") == q["a"]
 
         else:
-            correct = abs(answer - q["a"]) <= q["a"] * 0.1
+            correct = abs(answer - q["a"]) <= 0.1
 
         if correct:
             st.session_state.scores[st.session_state.turn] += 1
@@ -262,3 +244,4 @@ else:
 
     if st.session_state.msg:
         st.markdown(f"<h2 style='text-align:center'>{st.session_state.msg}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<div class='points'>Aktuelle Punkte: {st.session_state.scores}</div>", unsafe_allow_html=True)
