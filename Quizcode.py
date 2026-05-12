@@ -1,275 +1,225 @@
 import streamlit as st
 import random
+import uuid
+import requests
 
 # =========================================================
-# PAGE SETUP
+# SUPABASE CONFIG (HIER EINTRAGEN)
 # =========================================================
 
-st.set_page_config(
-    page_title="Ultimatives Quiz",
-    page_icon="🧠",
-    layout="wide"
-)
+SUPABASE_URL = "HIER_URL_EINSETZEN"
+SUPABASE_KEY = "HIER_KEY_EINSETZEN"
+
+HEADERS = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": f"Bearer {SUPABASE_KEY}",
+    "Content-Type": "application/json"
+}
 
 # =========================================================
-# SESSION STATE FIX
+# PAGE
 # =========================================================
 
-if "started" not in st.session_state:
-    st.session_state.started = False
+st.set_page_config(page_title="Online Quiz", layout="wide")
 
-if "players" not in st.session_state:
-    st.session_state.players = []
-
-if "scores" not in st.session_state:
-    st.session_state.scores = []
-
-if "turn" not in st.session_state:
-    st.session_state.turn = 0
-
-if "question" not in st.session_state:
-    st.session_state.question = None
-
-if "level" not in st.session_state:
-    st.session_state.level = "Anfänger"
-
-# =========================================================
-# BACKGROUND (FLÜSSIG ANIMIERT, OHNE BUGS)
-# =========================================================
-
-background = "https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+bg = "https://images.unsplash.com/photo-1506744038136-46273834b3fb"
 
 st.markdown(f"""
 <style>
 
 .stApp {{
     background:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.75)),
-    url("{background}");
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+    url("{bg}");
 
     background-size: cover;
     background-position: center;
-
-    animation: zoom 30s infinite ease-in-out;
-    color: white;
-}}
-
-@keyframes zoom {{
-    0% {{background-size: 100%;}}
-    50% {{background-size: 110%;}}
-    100% {{background-size: 100%;}}
-}}
-
-.title {{
-    text-align:center;
-    font-size:70px;
-    font-weight:900;
-    text-shadow:0 0 20px #00ffd5;
-}}
-
-.subtitle {{
-    text-align:center;
-    font-size:22px;
-    color:#ccc;
-    margin-bottom:30px;
+    color:white;
 }}
 
 .card {{
-    background: rgba(255,255,255,0.10);
-    padding: 25px;
-    border-radius: 25px;
-    backdrop-filter: blur(15px);
-}}
-
-.player {{
-    padding:15px;
-    border-radius:15px;
-    background: rgba(255,255,255,0.1);
-    text-align:center;
-}}
-
-.active {{
-    border: 2px solid #00ffd5;
-    box-shadow: 0 0 15px #00ffd5;
-}}
-
-.question {{
-    font-size:32px;
-    text-align:center;
-    margin:20px;
-    padding:30px;
+    background: rgba(255,255,255,0.12);
+    padding:20px;
     border-radius:20px;
-    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
 }}
 
 button {{
-    background: linear-gradient(90deg,#00ffd5,#0099ff);
-    color:black !important;
-    font-weight:bold;
     border-radius:15px !important;
-    height:60px;
+    font-weight:bold !important;
 }}
 
 </style>
 """, unsafe_allow_html=True)
 
 # =========================================================
-# FRAGEN
+# QUESTIONS
 # =========================================================
 
-abc_questions = [
-    {"q": "Hauptstadt von Deutschland?", "o": ["Berlin","Hamburg","München"], "a":"Berlin"},
-    {"q": "Größter Planet?", "o": ["Mars","Jupiter","Venus"], "a":"Jupiter"},
-]
-
-tf_questions = [
-    {"q": "Die Sonne ist ein Stern.", "a": True},
-    {"q": "Wasser kocht bei 50°C.", "a": False},
-]
-
-est_questions = [
-    {"q": "Wie viele Knochen hat der Mensch?", "a":206},
-    {"q": "Wie hoch ist der Mount Everest?", "a":8849},
+questions = [
+    {"q":"Hauptstadt Deutschland?", "o":["Berlin","Paris","Rom"], "a":"Berlin"},
+    {"q":"Sonne ist ein Stern?", "a":True},
+    {"q":"Wie viele Knochen hat Mensch?", "a":206}
 ]
 
 # =========================================================
-# STARTMENÜ
+# SUPABASE HELPERS
 # =========================================================
 
-if not st.session_state.started:
+def get_room(room_id):
+    r = requests.get(
+        f"{SUPABASE_URL}/rest/v1/rooms?id=eq.{room_id}",
+        headers=HEADERS
+    )
+    data = r.json()
+    return data[0] if data else None
 
-    st.markdown('<div class="title">🧠 QUIZ GAME</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Multiplayer Allgemeinwissen</div>', unsafe_allow_html=True)
 
-    with st.container():
-        st.markdown('<div class="card">', unsafe_allow_html=True)
+def update_room(room_id, state):
+    requests.patch(
+        f"{SUPABASE_URL}/rest/v1/rooms?id=eq.{room_id}",
+        headers=HEADERS,
+        json={"state": state}
+    )
 
-        players_count = st.selectbox("Spieleranzahl", [1,2,3,4])
-        players = []
+def create_room(room_id):
+    state = {
+        "players": [],
+        "scores": [],
+        "turn": 0,
+        "question": None
+    }
 
-        for i in range(players_count):
-            name = st.text_input(f"Spieler {i+1}", key=i)
-            if name == "":
-                name = f"Spieler {i+1}"
-            players.append(name)
-
-        level = st.selectbox("Level", ["Anfänger","Amateur","Profi","Quiz Master"])
-        points_goal = st.number_input("Punkte zum Gewinnen", 5, 100, 10)
-
-        if st.button("🚀 SPIEL STARTEN"):
-            st.session_state.started = True
-            st.session_state.players = players
-            st.session_state.scores = [0]*players_count
-            st.session_state.level = level
-            st.session_state.goal = points_goal
-            st.rerun()
-
-        st.markdown('</div>', unsafe_allow_html=True)
+    requests.post(
+        f"{SUPABASE_URL}/rest/v1/rooms",
+        headers=HEADERS,
+        json={"id": room_id, "state": state}
+    )
 
 # =========================================================
-# SPIEL
+# URL PARAMETER (ROOM SYSTEM)
+# =========================================================
+
+params = st.query_params
+
+# =========================================================
+# START SCREEN
+# =========================================================
+
+if "room" not in params:
+
+    st.title("🧠 ONLINE QUIZ LOBBY")
+
+    if st.button("🎮 Neue Lobby erstellen"):
+
+        room_id = str(uuid.uuid4())[:6]
+        create_room(room_id)
+
+        st.success(f"Lobby erstellt!")
+        st.code(f"?room={room_id}")
+
+# =========================================================
+# LOBBY / GAME
 # =========================================================
 
 else:
 
-    player = st.session_state.players[st.session_state.turn]
+    room_id = params["room"]
+    room = get_room(room_id)
 
-    st.markdown('<div class="title">🎯 QUIZ</div>', unsafe_allow_html=True)
+    if not room:
+        st.error("Lobby existiert nicht")
+        st.stop()
 
-    cols = st.columns(len(st.session_state.players))
+    state = room["state"]
 
-    for i,p in enumerate(st.session_state.players):
+    st.title(f"🎯 Lobby: {room_id}")
 
-        style = "player active" if i == st.session_state.turn else "player"
+    # =====================================================
+    # PLAYER JOIN
+    # =====================================================
 
-        with cols[i]:
-            st.markdown(
-                f"<div class='{style}'>{p}<br>{st.session_state.scores[i]} Punkte</div>",
-                unsafe_allow_html=True
-            )
+    if "name" not in st.session_state:
 
-    st.markdown(f"<div class='question'>🎮 {player} ist dran</div>", unsafe_allow_html=True)
+        name = st.text_input("Dein Name")
+
+        if st.button("Beitreten"):
+
+            if len(state["players"]) >= 4:
+                st.error("Lobby voll (max 4 Spieler)")
+                st.stop()
+
+            state["players"].append(name)
+            state["scores"].append(0)
+
+            update_room(room_id, state)
+
+            st.session_state.name = name
+            st.rerun()
+
+        st.stop()
+
+    # =====================================================
+    # GAME STATE
+    # =====================================================
+
+    player = state["players"][state["turn"]]
+
+    st.subheader(f"👉 Dran: {player}")
 
     # neue Frage
-    if st.session_state.question is None:
+    if not state["question"]:
+        state["question"] = random.choice(questions)
+        update_room(room_id, state)
 
-        t = random.choice(["abc","tf","est"])
+    q = state["question"]
 
-        if t == "abc":
-            st.session_state.question = random.choice(abc_questions)
-
-        elif t == "tf":
-            st.session_state.question = random.choice(tf_questions)
-
-        else:
-            st.session_state.question = random.choice(est_questions)
-
-    q = st.session_state.question
-
-    # =====================================================
-    # ABC
-    # =====================================================
+    answer = None
 
     if "o" in q:
-
-        ans = st.radio(q["q"], q["o"])
-
-        if st.button("Antwort prüfen"):
-            if ans == q["a"]:
-                st.success("Richtig!")
-                st.session_state.scores[st.session_state.turn] += 1
-            else:
-                st.error("Falsch!")
-
-            st.session_state.question = None
-            st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
-            st.rerun()
-
-    # =====================================================
-    # TRUE/FALSE
-    # =====================================================
-
-    elif isinstance(q["a"], bool):
-
-        ans = st.radio(q["q"], ["Wahr","Falsch"])
-
-        if st.button("Antwort prüfen"):
-            if (ans == "Wahr") == q["a"]:
-                st.success("Richtig!")
-                st.session_state.scores[st.session_state.turn] += 1
-            else:
-                st.error("Falsch!")
-
-            st.session_state.question = None
-            st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
-            st.rerun()
-
-    # =====================================================
-    # SCHÄTZFRAGE
-    # =====================================================
-
+        answer = st.radio(q["q"], q["o"])
     else:
-
-        ans = st.number_input(q["q"], value=0)
-
-        if st.button("Antwort prüfen"):
-
-            if abs(ans - q["a"]) <= q["a"] * 0.1:
-                st.success("Richtig!")
-                st.session_state.scores[st.session_state.turn] += 1
-            else:
-                st.error(f"Falsch! Antwort war {q['a']}")
-
-            st.session_state.question = None
-            st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
-            st.rerun()
+        if isinstance(q["a"], bool):
+            answer = st.radio(q["q"], ["Wahr","Falsch"])
+        else:
+            answer = st.number_input(q["q"], value=0)
 
     # =====================================================
-    # GEWINNER
+    # ANSWER
     # =====================================================
 
-    for i,s in enumerate(st.session_state.scores):
-        if s >= st.session_state.goal:
-            st.balloons()
-            st.success(f"🏆 {st.session_state.players[i]} gewinnt!")
-            st.stop()
+    if st.button("Antwort senden"):
+
+        correct = False
+
+        if "o" in q:
+            correct = answer == q["a"]
+
+        elif isinstance(q["a"], bool):
+            correct = (answer == "Wahr") == q["a"]
+
+        else:
+            correct = abs(answer - q["a"]) <= q["a"] * 0.1
+
+        if correct:
+            state["scores"][state["turn"]] += 1
+            st.success("Richtig!")
+        else:
+            st.error("Falsch!")
+
+        # nächster Spieler
+        state["turn"] = (state["turn"] + 1) % len(state["players"])
+        state["question"] = None
+
+        update_room(room_id, state)
+        st.rerun()
+
+    # =====================================================
+    # SCOREBOARD
+    # =====================================================
+
+    st.write("---")
+    st.write("### Punkte")
+
+    for p, s in zip(state["players"], state["scores"]):
+        st.write(f"{p}: {s}")
