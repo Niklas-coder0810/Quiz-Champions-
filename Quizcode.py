@@ -1,6 +1,6 @@
 # =========================================================
 # ULTIMATIVES ALLGEMEINWISSENS QUIZ
-# MODERNES DESIGN + MULTIPLAYER + ANIMATIONEN
+# KOMPLETTER FINALER CODE
 # =========================================================
 
 import streamlit as st
@@ -17,8 +17,30 @@ st.set_page_config(
     layout="wide"
 )
 
-# Hintergrund alle 20 Sekunden neu laden
-st_autorefresh(interval=20000, key="backgroundrefresh")
+# =========================================================
+# HINTERGRUND WECHSEL
+# =========================================================
+
+st_autorefresh(interval=20000, key="bgrefresh")
+
+# =========================================================
+# SESSION STATE
+# =========================================================
+
+if "bg_index" not in st.session_state:
+    st.session_state.bg_index = 0
+
+if "started" not in st.session_state:
+    st.session_state.started = False
+
+if "scores" not in st.session_state:
+    st.session_state.scores = []
+
+if "turn" not in st.session_state:
+    st.session_state.turn = 0
+
+if "current_question" not in st.session_state:
+    st.session_state.current_question = None
 
 # =========================================================
 # HINTERGRUND BILDER
@@ -42,7 +64,13 @@ backgrounds = [
     "https://images.unsplash.com/photo-1439066615861-d1af74d74000",
 ]
 
-bg = random.choice(backgrounds)
+# sanfter Hintergrundwechsel
+st.session_state.bg_index += 1
+
+if st.session_state.bg_index >= len(backgrounds):
+    st.session_state.bg_index = 0
+
+bg = backgrounds[st.session_state.bg_index]
 
 # =========================================================
 # DESIGN
@@ -54,29 +82,41 @@ st.markdown(
 
     .stApp {{
         background:
-        linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.70)),
+        linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.75)),
         url("{bg}");
 
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
+
         color: white;
 
-        animation: fadeIn 2s ease-in;
+        animation: backgroundFade 2s ease-in-out;
+        transition: background-image 2s ease-in-out;
     }}
 
-    @keyframes fadeIn {{
-        from {{opacity: 0;}}
-        to {{opacity: 1;}}
+    @keyframes backgroundFade {{
+        0% {{
+            opacity: 0.92;
+        }}
+
+        100% {{
+            opacity: 1;
+        }}
     }}
 
     .title {{
         text-align: center;
-        font-size: 65px;
+        font-size: 70px;
         font-weight: 900;
         color: white;
-        margin-bottom: 10px;
-        text-shadow: 0px 0px 25px rgba(0,255,213,0.9);
+        margin-top: 20px;
+        margin-bottom: 5px;
+
+        text-shadow:
+        0 0 10px rgba(0,255,213,0.8),
+        0 0 20px rgba(0,255,213,0.6),
+        0 0 40px rgba(0,255,213,0.4);
     }}
 
     .subtitle {{
@@ -87,49 +127,74 @@ st.markdown(
     }}
 
     .glass {{
-        background: rgba(255,255,255,0.12);
-        backdrop-filter: blur(18px);
-        border-radius: 25px;
-        padding: 30px;
+        background: rgba(255,255,255,0.10);
+        backdrop-filter: blur(20px);
+
+        border-radius: 30px;
+        padding: 35px;
+
         border: 1px solid rgba(255,255,255,0.2);
-        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+
+        box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        0 0 20px rgba(255,255,255,0.05);
     }}
 
     .player-card {{
         background: rgba(255,255,255,0.10);
-        border-radius: 22px;
+
+        border-radius: 25px;
+
         padding: 25px;
+
         text-align: center;
+
         font-size: 24px;
+
         font-weight: bold;
-        margin-bottom: 20px;
-        transition: 0.3s;
+
+        transition: all 0.3s ease;
+
+        border: 2px solid rgba(255,255,255,0.08);
     }}
 
     .active-player {{
         border: 3px solid #00ffd5;
+
         background: rgba(0,255,213,0.18);
+
         transform: scale(1.05);
-        box-shadow: 0 0 25px rgba(0,255,213,0.8);
+
+        box-shadow:
+        0 0 20px rgba(0,255,213,0.8),
+        0 0 40px rgba(0,255,213,0.3);
     }}
 
     .question-box {{
         background: rgba(0,0,0,0.45);
+
         border-radius: 30px;
-        padding: 40px;
+
+        padding: 45px;
+
         margin-top: 30px;
         margin-bottom: 30px;
+
         text-align: center;
+
         font-size: 36px;
+
         font-weight: bold;
-        animation: slideUp 0.6s ease;
+
+        animation: questionFade 0.7s ease;
     }}
 
-    @keyframes slideUp {{
+    @keyframes questionFade {{
         from {{
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
         }}
+
         to {{
             opacity: 1;
             transform: translateY(0px);
@@ -138,59 +203,114 @@ st.markdown(
 
     .turn-box {{
         text-align: center;
-        font-size: 30px;
+
+        font-size: 32px;
+
         font-weight: bold;
+
         color: #00ffd5;
+
         margin-top: 10px;
         margin-bottom: 30px;
-        animation: pulse 1.5s infinite;
+
+        animation: pulse 1.8s infinite;
     }}
 
     @keyframes pulse {{
-        0% {{transform: scale(1);}}
-        50% {{transform: scale(1.04);}}
-        100% {{transform: scale(1);}}
+        0% {{
+            transform: scale(1);
+        }}
+
+        50% {{
+            transform: scale(1.04);
+        }}
+
+        100% {{
+            transform: scale(1);
+        }}
     }}
 
+    /* BUTTONS */
+
     div.stButton > button {{
+
         width: 100%;
-        border-radius: 18px;
+
         height: 65px;
-        font-size: 22px;
-        font-weight: bold;
-        background: linear-gradient(90deg,#00ffd5,#0099ff);
-        color: black;
+
+        border-radius: 18px;
+
         border: none;
+
+        font-size: 22px;
+
+        font-weight: bold;
+
+        color: white;
+
+        background:
+        linear-gradient(
+            135deg,
+            #00ffd5,
+            #0099ff,
+            #6a5cff
+        );
+
+        background-size: 200% 200%;
+
+        animation: gradientMove 4s ease infinite;
+
         transition: all 0.3s ease;
-        box-shadow: 0 0 20px rgba(0,255,213,0.4);
+
+        box-shadow:
+        0 0 15px rgba(0,255,213,0.4),
+        0 0 25px rgba(0,153,255,0.3);
     }}
 
     div.stButton > button:hover {{
+
         transform: scale(1.03);
-        box-shadow: 0 0 30px rgba(0,255,213,0.9);
+
+        box-shadow:
+        0 0 25px rgba(0,255,213,0.8),
+        0 0 45px rgba(0,153,255,0.5);
     }}
 
-    div.stRadio > label {{
-        font-size: 22px !important;
-        color: white !important;
+    @keyframes gradientMove {{
+        0% {{
+            background-position: 0% 50%;
+        }}
+
+        50% {{
+            background-position: 100% 50%;
+        }}
+
+        100% {{
+            background-position: 0% 50%;
+        }}
     }}
 
-    .stNumberInput label {{
+    /* FORMULAR */
+
+    .stTextInput label,
+    .stSelectbox label,
+    .stNumberInput label,
+    .stRadio label {{
         color: white !important;
         font-size: 20px !important;
+        font-weight: bold !important;
     }}
 
-    .stTextInput label {{
-        color: white !important;
-        font-size: 20px !important;
+    div[data-baseweb="select"] {{
+        background-color: rgba(255,255,255,0.10);
+        border-radius: 15px;
     }}
 
-    .stSelectbox label {{
-        color: white !important;
-        font-size: 20px !important;
+    input {{
+        border-radius: 12px !important;
     }}
 
-    h1,h2,h3,h4 {{
+    h1,h2,h3,h4,h5 {{
         color: white !important;
     }}
 
@@ -232,10 +352,6 @@ true_false_questions = [
         "question": "Wasser gefriert bei 0 Grad Celsius.",
         "answer": True
     },
-    {
-        "question": "Ein Jahr hat 500 Tage.",
-        "answer": False
-    },
 ]
 
 estimate_questions = [
@@ -247,10 +363,6 @@ estimate_questions = [
         "question": "Wie viele Knochen hat ein Mensch?",
         "answer": 206
     },
-    {
-        "question": "Wie viele Länder gibt es auf der Erde?",
-        "answer": 195
-    },
 ]
 
 while len(questions) < 1000:
@@ -258,14 +370,17 @@ while len(questions) < 1000:
     qtype = random.choice(["abc", "tf", "estimate"])
 
     if qtype == "abc":
+
         q = random.choice(abc_questions).copy()
         q["type"] = "abc"
 
     elif qtype == "tf":
+
         q = random.choice(true_false_questions).copy()
         q["type"] = "tf"
 
     else:
+
         q = random.choice(estimate_questions).copy()
         q["type"] = "estimate"
 
@@ -283,83 +398,78 @@ levels = {
 }
 
 # =========================================================
-# SESSION STATE
-# =========================================================
-
-if "started" not in st.session_state:
-    st.session_state.started = False
-
-if "scores" not in st.session_state:
-    st.session_state.scores = []
-
-if "turn" not in st.session_state:
-    st.session_state.turn = 0
-
-if "current_question" not in st.session_state:
-    st.session_state.current_question = None
-
-# =========================================================
 # STARTMENÜ
 # =========================================================
 
 if not st.session_state.started:
 
-    st.markdown('<div class="title">🧠 ULTIMATIVES QUIZ</div>', unsafe_allow_html=True)
-    st.markdown('<div class="subtitle">Das modernste Allgemeinwissens Quiz</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="title">🧠 ULTIMATIVES QUIZ</div>',
+        unsafe_allow_html=True
+    )
 
-    with st.container():
+    st.markdown(
+        '<div class="subtitle">Das modernste Allgemeinwissens Quiz</div>',
+        unsafe_allow_html=True
+    )
 
-        st.markdown('<div class="glass">', unsafe_allow_html=True)
+    st.markdown('<div class="glass">', unsafe_allow_html=True)
 
-        player_count = st.selectbox(
-            "Wie viele Spieler?",
-            [1, 2, 3, 4]
+    player_count = st.selectbox(
+        "🎮 Anzahl Spieler",
+        [1, 2, 3, 4],
+        index=0
+    )
+
+    player_names = []
+
+    for i in range(player_count):
+
+        name = st.text_input(
+            f"Name Spieler {i+1}",
+            key=f"name_{i}"
         )
 
-        player_names = []
+        if name == "":
+            name = f"Spieler {i+1}"
 
-        for i in range(player_count):
+        player_names.append(name)
 
-            name = st.text_input(
-                f"Name Spieler {i+1}",
-                key=f"name_{i}"
-            )
+    level = st.selectbox(
+        "🏆 Schwierigkeit",
+        list(levels.keys())
+    )
 
-            if name == "":
-                name = f"Spieler {i+1}"
+    target_points = st.number_input(
+        "⭐ Punkte zum Gewinnen",
+        min_value=5,
+        max_value=100,
+        value=10
+    )
 
-            player_names.append(name)
+    if st.button("🚀 SPIEL STARTEN", use_container_width=True):
 
-        level = st.selectbox(
-            "Wähle ein Level",
-            list(levels.keys())
-        )
+        st.session_state.started = True
 
-        target_points = st.number_input(
-            "Bis wie viele Punkte wird gespielt?",
-            min_value=5,
-            max_value=100,
-            value=10
-        )
+        st.session_state.players = player_names
 
-        if st.button("🎮 SPIEL STARTEN"):
+        st.session_state.scores = [0] * player_count
 
-            st.session_state.started = True
-            st.session_state.players = player_names
-            st.session_state.scores = [0] * player_count
-            st.session_state.level = level
-            st.session_state.target_points = target_points
-            st.session_state.turn = 0
+        st.session_state.level = level
 
-            level_range = levels[level]["range"]
+        st.session_state.target_points = target_points
 
-            st.session_state.available_questions = questions[
-                level_range[0]:level_range[1]
-            ]
+        st.session_state.turn = 0
 
-            st.rerun()
+        level_range = levels[level]["range"]
 
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.session_state.available_questions = questions[
+            level_range[0]:level_range[1]
+        ]
+
+        st.rerun()
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # =========================================================
 # SPIEL
@@ -367,11 +477,17 @@ if not st.session_state.started:
 
 else:
 
-    current_player = st.session_state.players[st.session_state.turn]
+    current_player = st.session_state.players[
+        st.session_state.turn
+    ]
 
-    st.markdown('<div class="title">🎯 QUIZ DUELL</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="title">🎯 QUIZ DUELL</div>',
+        unsafe_allow_html=True
+    )
 
-    # Spieler anzeigen
+    # SPIELER KARTEN
+
     cols = st.columns(len(st.session_state.players))
 
     for i, player in enumerate(st.session_state.players):
@@ -393,7 +509,8 @@ else:
                 unsafe_allow_html=True
             )
 
-    # Gewinner prüfen
+    # GEWINNER
+
     for i, score in enumerate(st.session_state.scores):
 
         if score >= st.session_state.target_points:
@@ -415,7 +532,8 @@ else:
         unsafe_allow_html=True
     )
 
-    # Neue Frage
+    # FRAGE
+
     if st.session_state.current_question is None:
 
         st.session_state.current_question = random.choice(
@@ -424,7 +542,6 @@ else:
 
     q = st.session_state.current_question
 
-    # Frage anzeigen
     st.markdown(
         f"""
         <div class="question-box">
@@ -443,7 +560,7 @@ else:
     if q["type"] == "abc":
 
         answer = st.radio(
-            "Wähle eine Antwort:",
+            "Antwort auswählen",
             q["options"]
         )
 
@@ -452,33 +569,8 @@ else:
             if answer == q["answer"]:
                 correct = True
 
-            if correct:
-
-                points = levels[st.session_state.level]["points"]
-
-                st.success(f"Richtig! +{points} Punkte")
-                st.balloons()
-
-                st.session_state.scores[
-                    st.session_state.turn
-                ] += points
-
-            else:
-
-                st.error("❌ Leider falsch!")
-                st.snow()
-
-            st.session_state.current_question = None
-
-            st.session_state.turn += 1
-
-            if st.session_state.turn >= len(st.session_state.players):
-                st.session_state.turn = 0
-
-            st.rerun()
-
     # =====================================================
-    # WAHR / FALSCH
+    # WAHR/FALSCH
     # =====================================================
 
     elif q["type"] == "tf":
@@ -490,35 +582,8 @@ else:
 
         if st.button("✅ Antwort bestätigen"):
 
-            bool_answer = answer == "Wahr"
-
-            if bool_answer == q["answer"]:
+            if (answer == "Wahr") == q["answer"]:
                 correct = True
-
-            if correct:
-
-                points = levels[st.session_state.level]["points"]
-
-                st.success(f"Richtig! +{points} Punkte")
-                st.balloons()
-
-                st.session_state.scores[
-                    st.session_state.turn
-                ] += points
-
-            else:
-
-                st.error("❌ Leider falsch!")
-                st.snow()
-
-            st.session_state.current_question = None
-
-            st.session_state.turn += 1
-
-            if st.session_state.turn >= len(st.session_state.players):
-                st.session_state.turn = 0
-
-            st.rerun()
 
     # =====================================================
     # SCHÄTZFRAGEN
@@ -533,37 +598,43 @@ else:
 
         if st.button("✅ Antwort bestätigen"):
 
-            correct_value = q["answer"]
+            tolerance = q["answer"] * 0.10
 
-            tolerance = correct_value * 0.10
-
-            if abs(answer - correct_value) <= tolerance:
+            if abs(answer - q["answer"]) <= tolerance:
                 correct = True
 
-            if correct:
+    # =====================================================
+    # AUSWERTUNG
+    # =====================================================
 
-                points = levels[st.session_state.level]["points"]
+    if correct:
 
-                st.success(f"Richtig! +{points} Punkte")
-                st.balloons()
+        points = levels[
+            st.session_state.level
+        ]["points"]
 
-                st.session_state.scores[
-                    st.session_state.turn
-                ] += points
+        st.success(f"✅ Richtig! +{points} Punkte")
 
-            else:
+        st.balloons()
 
-                st.error(
-                    f"❌ Leider falsch! Richtige Antwort: {correct_value}"
-                )
+        st.session_state.scores[
+            st.session_state.turn
+        ] += points
 
-                st.snow()
+    elif "Antwort bestätigen":
 
-            st.session_state.current_question = None
+        pass
 
-            st.session_state.turn += 1
+    # Nächster Spieler
 
-            if st.session_state.turn >= len(st.session_state.players):
-                st.session_state.turn = 0
+    if st.button("➡️ NÄCHSTE FRAGE", use_container_width=True):
 
-            st.rerun()
+        st.session_state.current_question = None
+
+        st.session_state.turn += 1
+
+        if st.session_state.turn >= len(st.session_state.players):
+
+            st.session_state.turn = 0
+
+        st.rerun()
