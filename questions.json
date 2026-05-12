@@ -1,0 +1,26 @@
+[
+  {
+    "q": "Hauptstadt von Deutschland?",
+    "o": ["Berlin", "Paris", "Rom", "Madrid"],
+    "a": "Berlin"
+  },
+  {
+    "q": "Welcher Planet ist der größte?",
+    "o": ["Mars", "Jupiter", "Venus", "Saturn"],
+    "a": "Jupiter"
+  },
+  {
+    "q": "Wie viele Kontinente gibt es?",
+    "o": ["5", "6", "7", "8"],
+    "a": "7"
+  },
+  {
+    "q": "Wasser gefriert bei 0°C.",
+    "a": true
+  },
+  {
+    "q": "Wie viele Bundesländer hat Deutschland?",
+    "o": ["16", "14", "18", "12"],
+    "a": "16"
+  }
+]
