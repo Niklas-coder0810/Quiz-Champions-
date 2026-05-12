@@ -18,44 +18,26 @@ def init():
         st.session_state.players = []
     if "scores" not in st.session_state:
         st.session_state.scores = []
+    if "turn" not in st.session_state:
+        st.session_state.turn = 0
     if "questions" not in st.session_state:
         st.session_state.questions = {}
-    if "answered" not in st.session_state:
-        st.session_state.answered = {}
 
 init()
 
 # =========================================================
-# 1000+ QUESTIONS SYSTEM (STRUKTURIERT)
+# QUESTION BANK (später 1000+ erweiterbar)
 # =========================================================
 
 QUESTION_BANK = [
-    {
-        "q": "Welche Stadt ist die Hauptstadt von Deutschland?",
-        "o": ["Berlin", "Hamburg", "München", "Köln"],
-        "a": "Berlin"
-    },
-    {
-        "q": "Welcher Planet ist der größte in unserem Sonnensystem?",
-        "o": ["Mars", "Jupiter", "Saturn", "Venus"],
-        "a": "Jupiter"
-    },
-    {
-        "q": "Die Lichtgeschwindigkeit beträgt ungefähr 300.000 km/s.",
-        "a": True
-    },
-    {
-        "q": "Wie viele Kontinente gibt es auf der Erde?",
-        "o": ["5", "6", "7", "8"],
-        "a": "7"
-    },
+    {"q":"Hauptstadt von Deutschland?", "o":["Berlin","Paris","Rom"], "a":"Berlin"},
+    {"q":"Größter Planet?", "o":["Mars","Jupiter","Venus"], "a":"Jupiter"},
+    {"q":"Die Sonne ist ein Stern.", "a":True},
+    {"q":"Wie viele Kontinente gibt es?", "o":["5","6","7","8"], "a":"7"},
 ]
 
-# 👉 später erweiterbar auf 1000+:
-# einfach weitere Dicts hinzufügen oder JSON laden
-
 # =========================================================
-# START
+# START SCREEN
 # =========================================================
 
 if not st.session_state.started:
@@ -84,72 +66,76 @@ if not st.session_state.started:
 
 else:
 
+    player_index = st.session_state.turn
+    player = st.session_state.players[player_index]
+
     st.title("🎯 QUIZ BATTLE")
 
-    cols = st.columns(len(st.session_state.players))
+    st.markdown(f"## 👉 Jetzt dran: **{player}**")
 
     # =====================================================
-    # JEDER SPIELER EIGENE FRAGE
+    # FRAGE FÜR DIESEN SPIELER
     # =====================================================
 
-    for i, player in enumerate(st.session_state.players):
+    if player_index not in st.session_state.questions:
+        st.session_state.questions[player_index] = random.choice(QUESTION_BANK)
 
-        # Frage zuweisen falls neu
-        if i not in st.session_state.questions:
-            st.session_state.questions[i] = random.choice(QUESTION_BANK)
+    q = st.session_state.questions[player_index]
 
-        q = st.session_state.questions[i]
+    st.write("---")
 
-        with cols[i]:
+    st.markdown(f"### ❓ {q['q']}")
 
-            st.markdown(f"### {player}")
-            st.markdown(f"🏆 Punkte: {st.session_state.scores[i]}")
+    answer = None
 
-            st.markdown("---")
+    # =====================================================
+    # INPUT
+    # =====================================================
 
-            st.markdown(f"**❓ {q['q']}**")
+    if "o" in q:
+        answer = st.radio("Antwort", q["o"])
+    elif isinstance(q["a"], bool):
+        answer = st.radio("Antwort", ["Wahr","Falsch"])
+    else:
+        answer = st.number_input("Antwort", value=0)
 
-            # =================================================
-            # INPUT
-            # =================================================
+    # =====================================================
+    # CHECK BUTTON (WICHTIG: NUR 1 BUTTON)
+    # =====================================================
 
-            key = f"ans_{i}"
+    if st.button("✅ Antwort bestätigen"):
 
-            answer = None
+        correct = False
 
-            if "o" in q:
-                answer = st.radio("Antwort", q["o"], key=key)
+        if "o" in q:
+            correct = answer == q["a"]
 
-            elif isinstance(q["a"], bool):
-                answer = st.radio("Antwort", ["Wahr","Falsch"], key=key)
+        elif isinstance(q["a"], bool):
+            correct = (answer == "Wahr") == q["a"]
 
-            else:
-                answer = st.number_input("Antwort", value=0, key=key)
+        else:
+            correct = abs(answer - q["a"]) <= q["a"] * 0.1
 
-            # =================================================
-            # CHECK
-            # =================================================
+        if correct:
+            st.success("✔ Richtig!")
+            st.session_state.scores[player_index] += 1
+        else:
+            st.error("✖ Falsch!")
 
-            if st.button(f"Antwort prüfen {player}", key=f"btn_{i}"):
+        # 👉 neue Frage nur für diesen Spieler
+        st.session_state.questions[player_index] = random.choice(QUESTION_BANK)
 
-                correct = False
+        # 👉 nächster Spieler
+        st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
 
-                if "o" in q:
-                    correct = answer == q["a"]
+        st.rerun()
 
-                elif isinstance(q["a"], bool):
-                    correct = (answer == "Wahr") == q["a"]
+    # =====================================================
+    # SCOREBOARD
+    # =====================================================
 
-                else:
-                    correct = abs(answer - q["a"]) <= q["a"] * 0.1
+    st.write("---")
+    st.subheader("🏆 Punkte")
 
-                if correct:
-                    st.success("✔ Richtig!")
-                    st.session_state.scores[i] += 1
-                else:
-                    st.error("✖ Falsch!")
-
-                # neue Frage für diesen Spieler
-                st.session_state.questions[i] = random.choice(QUESTION_BANK)
-
-                st.rerun()
+    for p, s in zip(st.session_state.players, st.session_state.scores):
+        st.write(f"{p}: {s}")
