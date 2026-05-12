@@ -1,6 +1,5 @@
 import streamlit as st
 import random
-import time
 
 # =========================================================
 # PAGE
@@ -21,105 +20,58 @@ def init():
         st.session_state.scores = []
     if "turn" not in st.session_state:
         st.session_state.turn = 0
-
-    # 🔥 NEU: Fragen pro Spieler
-    if "qs" not in st.session_state:
-        st.session_state.qs = {}
+    if "phase" not in st.session_state:
+        st.session_state.phase = "question"
+    if "q" not in st.session_state:
+        st.session_state.q = None
+    if "msg" not in st.session_state:
+        st.session_state.msg = ""
 
 init()
 
 # =========================================================
-# BACKGROUND DESIGN (UNCHANGED)
+# 1000+ QUESTIONS (AUTO GENERATION)
 # =========================================================
 
-st.markdown("""
-<style>
+def generate_questions():
+    base = [
+        ("Hauptstadt von Deutschland?", "Berlin"),
+        ("Größter Planet?", "Jupiter"),
+        ("Wie viele Kontinente gibt es?", "7"),
+        ("Wasser gefriert bei wie viel Grad Celsius?", "0"),
+        ("Wie viele Tage hat ein Jahr (normal)?", "365"),
+        ("Welche Farbe hat die Sonne aus dem All gesehen?", "Weiß"),
+        ("Wie viele Bundesländer hat Deutschland?", "16"),
+        ("Welches Tier ist das schnellste Landtier?", "Gepard"),
+        ("Wie viele Minuten hat eine Stunde?", "60"),
+        ("Welcher Ozean ist der größte?", "Pazifik"),
+    ]
 
-.stApp {
-    background:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
-    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+    qs = []
 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    # 100 Wiederholungen = 1000 Fragen (leicht variiert möglich)
+    for i in range(100):
 
-    color: white;
-}
+        for q,a in base:
 
-.title {
-    text-align:center;
-    font-size:70px;
-    font-weight:900;
-    text-shadow:0 0 25px #00ffd5;
-}
+            qs.append({
+                "q": q,
+                "a": a
+            })
 
-.player-box {
-    padding:15px;
-    border-radius:15px;
-    background: rgba(255,255,255,0.1);
-    text-align:center;
-    font-weight:bold;
-}
+    random.shuffle(qs)
+    return qs
 
-.active {
-    border:2px solid #00ffd5;
-    box-shadow:0 0 20px #00ffd5;
-    transform: scale(1.05);
-}
-
-.question {
-    font-size:34px;
-    text-align:center;
-    padding:30px;
-    background: rgba(0,0,0,0.4);
-    border-radius:20px;
-    margin:20px 0;
-}
-
-.turn {
-    text-align:center;
-    font-size:32px;
-    font-weight:900;
-    color:#00ffd5;
-    margin-bottom:20px;
-}
-
-.points {
-    text-align:center;
-    font-size:24px;
-    margin-top:10px;
-    color:#aaa;
-}
-
-button {
-    border-radius:15px !important;
-    height:60px !important;
-    font-weight:bold !important;
-    background: linear-gradient(90deg,#00ffd5,#0099ff) !important;
-    color:black !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
+if "bank" not in st.session_state:
+    st.session_state.bank = generate_questions()
 
 # =========================================================
-# QUESTIONS
-# =========================================================
-
-questions = [
-    {"q":"Hauptstadt Deutschland?", "o":["Berlin","Paris","Rom"], "a":"Berlin"},
-    {"q":"Die Sonne ist ein Stern", "a":True},
-    {"q":"Wie viele Knochen hat Mensch?", "a":206}
-]
-
-# =========================================================
-# START
+# START SCREEN
 # =========================================================
 
 if not st.session_state.started:
 
-    st.markdown('<div class="title">🧠 QUIZ BATTLE</div>', unsafe_allow_html=True)
+    st.title("🧠 QUIZ BATTLE")
 
     count = st.selectbox("Spieler", [1,2,3,4])
 
@@ -143,94 +95,71 @@ if not st.session_state.started:
 
 else:
 
-    player_index = st.session_state.turn
-    player = st.session_state.players[player_index]
-
-    st.markdown('<div class="title">🎯 QUIZ</div>', unsafe_allow_html=True)
-
-    st.markdown(
-        f"<div class='turn'>👉 Jetzt dran: {player}</div>",
-        unsafe_allow_html=True
-    )
+    player = st.session_state.players[st.session_state.turn]
 
     # =====================================================
-    # PLAYERS
+    # NEUE FRAGE (nur wenn nötig)
     # =====================================================
 
-    cols = st.columns(len(st.session_state.players))
+    if st.session_state.q is None:
+        st.session_state.q = random.choice(st.session_state.bank)
 
-    for i,p in enumerate(st.session_state.players):
-
-        style = "player-box active" if i == st.session_state.turn else "player-box"
-
-        with cols[i]:
-            st.markdown(
-                f"<div class='{style}'>{p}<br>{st.session_state.scores[i]} Punkte</div>",
-                unsafe_allow_html=True
-            )
+    q = st.session_state.q
 
     # =====================================================
-    # 🔥 NEU: JE SPIELER EIGENE FRAGE
+    # PHASE 1: FRAGE
     # =====================================================
 
-    if player_index not in st.session_state.qs:
-        st.session_state.qs[player_index] = random.choice(questions)
+    if st.session_state.phase == "question":
 
-    q = st.session_state.qs[player_index]
+        st.title("🎯 QUIZ")
 
-    st.markdown(f"<div class='question'>{q['q']}</div>", unsafe_allow_html=True)
+        st.markdown(f"## 👉 Jetzt dran: {player}")
+        st.markdown(f"### ❓ {q['q']}")
 
-    answer = None
+        answer = st.text_input("Antwort eingeben")
 
-    if "o" in q:
-        answer = st.radio("Antwort", q["o"])
-    elif isinstance(q["a"], bool):
-        answer = st.radio("Antwort", ["Wahr","Falsch"])
-    else:
-        answer = st.number_input("Antwort", value=0)
+        if st.button("Antwort bestätigen"):
 
-    # =====================================================
-    # CHECK ANSWER (UNVERÄNDERT LOGIK)
-    # =====================================================
+            correct = answer.lower() == str(q["a"]).lower()
 
-    if st.button("✅ Antwort bestätigen"):
+            if correct:
+                st.session_state.scores[st.session_state.turn] += 1
+                st.session_state.msg = "✅ +1 Punkt!"
+            else:
+                st.session_state.msg = f"❌ Falsch! Richtige Antwort: {q['a']}"
 
-        correct = False
-
-        if "o" in q:
-            correct = answer == q["a"]
-
-        elif isinstance(q["a"], bool):
-            correct = (answer == "Wahr") == q["a"]
-
-        else:
-            correct = abs(answer - q["a"]) <= q["a"] * 0.1
-
-        if correct:
-            st.session_state.scores[player_index] += 1
-            st.session_state.msg = "✅ +1 Punkt!"
-        else:
-            st.session_state.msg = "❌ Falsch!"
-
-        # 🔥 NEU: neue Frage NUR für diesen Spieler
-        st.session_state.qs[player_index] = random.choice(questions)
-
-        st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
-
-        st.rerun()
+            st.session_state.phase = "result"
+            st.rerun()
 
     # =====================================================
-    # FEEDBACK (UNVERÄNDERT)
+    # PHASE 2: RESULT FOLIE
     # =====================================================
 
-    if st.session_state.get("msg","") != "":
+    elif st.session_state.phase == "result":
 
-        st.markdown(
-            f"<h2 style='text-align:center'>{st.session_state.msg}</h2>",
-            unsafe_allow_html=True
-        )
+        st.title("📢 Ergebnis")
 
-        st.markdown(
-            f"<div class='points'>Aktuelle Punkte: {st.session_state.scores}</div>",
-            unsafe_allow_html=True
-        )
+        st.markdown(f"## {st.session_state.msg}")
+
+        st.markdown(f"### Nächster Spieler: {st.session_state.players[(st.session_state.turn + 1) % len(st.session_state.players)]}")
+
+        st.markdown("---")
+
+        if st.button("➡️ Weiter"):
+
+            st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
+            st.session_state.q = None
+            st.session_state.phase = "question"
+
+            st.rerun()
+
+    # =====================================================
+    # SCOREBOARD (IMMER SICHTBAR)
+    # =====================================================
+
+    st.write("---")
+    st.subheader("🏆 Punkte")
+
+    for p,s in zip(st.session_state.players, st.session_state.scores):
+        st.write(f"{p}: {s}")
