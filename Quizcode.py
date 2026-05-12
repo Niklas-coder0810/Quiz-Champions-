@@ -1,5 +1,5 @@
 import streamlit as st
-random
+import random
 import time
 
 # =========================================================
