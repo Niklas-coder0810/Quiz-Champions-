@@ -108,11 +108,43 @@ button {
 # QUESTIONS
 # =========================================================
 
-questions = [
-    {"q":"Hauptstadt Deutschland?", "o":["Berlin","Paris","Rom"], "a":"Berlin"},
-    {"q":"Die Sonne ist ein Stern", "a":True},
-    {"q":"Wie viele Knochen hat Mensch?", "a":206}
+import random
+
+BASE_QUESTIONS = [
+    {"q":"Hauptstadt von Deutschland?", "o":["Berlin","Paris","Rom","Madrid"], "a":"Berlin"},
+    {"q":"Welcher Planet ist der größte?", "o":["Mars","Jupiter","Venus","Saturn"], "a":"Jupiter"},
+    {"q":"Wie viele Kontinente gibt es?", "o":["5","6","7","8"], "a":"7"},
+    {"q":"Wasser gefriert bei wie viel °C?", "o":["0","-1","100","10"], "a":"0"},
+    {"q":"Wie viele Tage hat ein Jahr?", "o":["365","360","400","300"], "a":"365"},
+    {"q":"Wie viele Bundesländer hat Deutschland?", "o":["16","14","18","12"], "a":"16"},
+    {"q":"Welches Tier ist das schnellste Landtier?", "o":["Gepard","Löwe","Pferd","Tiger"], "a":"Gepard"},
+    {"q":"Wie viele Minuten hat eine Stunde?", "o":["60","100","30","90"], "a":"60"},
+    {"q":"Welcher Ozean ist der größte?", "o":["Pazifik","Atlantik","Indischer","Arktischer"], "a":"Pazifik"},
+    {"q":"Wie viele Sekunden hat eine Minute?", "o":["60","100","120","30"], "a":"60"},
 ]
+
+def generate_1000_questions():
+    bank = []
+
+    # 100x wiederholen + leicht mischen
+    for i in range(100):
+        for q in BASE_QUESTIONS:
+
+            new_q = q.copy()
+
+            # leichte Randomisierung der Reihenfolge
+            if "o" in new_q:
+                options = new_q["o"].copy()
+                random.shuffle(options)
+                new_q["o"] = options
+
+            bank.append(new_q)
+
+    random.shuffle(bank)
+    return bank
+
+
+questions = generate_1000_questions()
 
 # =========================================================
 # RESET BUTTON (HOME)
