@@ -107,7 +107,6 @@ button {
 # =========================================================
 # QUESTIONS
 # =========================================================
-
 import random
 
 BASE_QUESTIONS = [
@@ -122,6 +121,7 @@ BASE_QUESTIONS = [
     {"q":"Welcher Ozean ist der größte?", "o":["Pazifik","Atlantik","Indischer","Arktischer"], "a":"Pazifik"},
     {"q":"Wie viele Sekunden hat eine Minute?", "o":["60","100","120","30"], "a":"60"},
 ]
+
 
 def generate_1000_questions():
     bank = []
