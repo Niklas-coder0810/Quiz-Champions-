@@ -1,6 +1,7 @@
 import streamlit as st
 import random
 import time
+import json
 
 # =========================================================
 # PAGE
@@ -29,7 +30,21 @@ def init():
 init()
 
 # =========================================================
-# BACKGROUND DESIGN (UNVERÄNDERT)
+# 🔥 LOAD QUESTIONS FROM FILE
+# =========================================================
+
+@st.cache_data
+def load_questions():
+    with open("questions.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    random.shuffle(data)
+    return data
+
+if "bank" not in st.session_state:
+    st.session_state.bank = load_questions()
+
+# =========================================================
+# BACKGROUND DESIGN (EXAKT GLEICH BLEIBEND)
 # =========================================================
 
 st.markdown("""
@@ -111,35 +126,6 @@ button {
 """, unsafe_allow_html=True)
 
 # =========================================================
-# 🔥 1000 ECHTE FRAGEN SYSTEM
-# =========================================================
-
-BASE = [
-    {"q":"Hauptstadt von Deutschland?", "o":["Berlin","Paris","Rom","Madrid"], "a":"Berlin"},
-    {"q":"Hauptstadt von Frankreich?", "o":["Paris","Berlin","Rom","London"], "a":"Paris"},
-    {"q":"Hauptstadt von Italien?", "o":["Rom","Mailand","Neapel","Turin"], "a":"Rom"},
-    {"q":"Wie viele Kontinente gibt es?", "o":["5","6","7","8"], "a":"7"},
-    {"q":"Wasser gefriert bei 0°C.", "a":True},
-    {"q":"Wie viele Tage hat ein Jahr?", "o":["365","360","400","300"], "a":"365"},
-    {"q":"Wie viele Bundesländer hat Deutschland?", "o":["16","14","18","12"], "a":"16"},
-    {"q":"Welcher Planet ist der größte?", "o":["Mars","Jupiter","Venus","Saturn"], "a":"Jupiter"},
-    {"q":"Wie viele Minuten hat eine Stunde?", "o":["60","100","30","90"], "a":"60"},
-    {"q":"Welcher Ozean ist der größte?", "o":["Pazifik","Atlantik","Indisch","Arktis"], "a":"Pazifik"},
-]
-
-def generate_1000():
-    bank = []
-    for i in range(100):
-        for q in BASE:
-            bank.append(q.copy())
-    random.shuffle(bank)
-    return bank
-
-# einmalig erzeugen
-if "bank" not in st.session_state:
-    st.session_state.bank = generate_1000()
-
-# =========================================================
 # START
 # =========================================================
 
@@ -191,7 +177,7 @@ else:
             )
 
     # =====================================================
-    # FRAGE (WICHTIG: KEINE DUPLIKATE IM FLOW)
+    # QUESTION FROM FILE (FIXED)
     # =====================================================
 
     if st.session_state.q is None:
