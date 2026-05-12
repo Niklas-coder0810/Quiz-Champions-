@@ -1,14 +1,15 @@
 import streamlit as st
 import random
+import time
 
 # =========================================================
-# SETUP
+# PAGE
 # =========================================================
 
 st.set_page_config(page_title="Quiz Battle", layout="wide")
 
 # =========================================================
-# SESSION STATE
+# STATE
 # =========================================================
 
 def init():
@@ -22,19 +23,101 @@ def init():
         st.session_state.turn = 0
     if "q" not in st.session_state:
         st.session_state.q = None
-    if "used_joker" not in st.session_state:
-        st.session_state.used_joker = {}
+    if "msg" not in st.session_state:
+        st.session_state.msg = ""
 
 init()
 
 # =========================================================
-# FRAGEN
+# BACKGROUND DESIGN
+# =========================================================
+
+st.markdown("""
+<style>
+
+.stApp {
+    background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: white;
+}
+
+.title {
+    text-align:center;
+    font-size:70px;
+    font-weight:900;
+    text-shadow:0 0 25px #00ffd5;
+}
+
+.card {
+    background: rgba(255,255,255,0.12);
+    padding:25px;
+    border-radius:25px;
+    backdrop-filter: blur(15px);
+}
+
+.player-box {
+    padding:15px;
+    border-radius:15px;
+    background: rgba(255,255,255,0.1);
+    text-align:center;
+    font-weight:bold;
+}
+
+.active {
+    border:2px solid #00ffd5;
+    box-shadow:0 0 20px #00ffd5;
+    transform: scale(1.05);
+}
+
+.question {
+    font-size:34px;
+    text-align:center;
+    padding:30px;
+    background: rgba(0,0,0,0.4);
+    border-radius:20px;
+    margin:20px 0;
+}
+
+.turn {
+    text-align:center;
+    font-size:32px;
+    font-weight:900;
+    color:#00ffd5;
+    margin-bottom:20px;
+}
+
+.points {
+    text-align:center;
+    font-size:24px;
+    margin-top:10px;
+    color:#aaa;
+}
+
+button {
+    border-radius:15px !important;
+    height:60px !important;
+    font-weight:bold !important;
+    background: linear-gradient(90deg,#00ffd5,#0099ff) !important;
+    color:black !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# =========================================================
+# QUESTIONS
 # =========================================================
 
 questions = [
-    {"type":"abc","q":"Hauptstadt Deutschland?","o":["Berlin","Paris","Rom"],"a":"Berlin"},
-    {"type":"tf","q":"Die Sonne ist ein Stern","a":True},
-    {"type":"est","q":"Wie viele Knochen hat der Mensch?", "a":206},
+    {"q":"Hauptstadt Deutschland?", "o":["Berlin","Paris","Rom"], "a":"Berlin"},
+    {"q":"Die Sonne ist ein Stern", "a":True},
+    {"q":"Wie viele Knochen hat Mensch?", "a":206}
 ]
 
 # =========================================================
@@ -43,11 +126,12 @@ questions = [
 
 if not st.session_state.started:
 
-    st.title("🧠 QUIZ BATTLE")
+    st.markdown('<div class="title">🧠 QUIZ BATTLE</div>', unsafe_allow_html=True)
 
-    count = st.selectbox("Spieleranzahl", [1,2,3,4])
+    count = st.selectbox("Spieler", [1,2,3,4])
 
     players = []
+
     for i in range(count):
         name = st.text_input(f"Spieler {i+1}")
         if name == "":
@@ -68,94 +152,83 @@ else:
 
     player = st.session_state.players[st.session_state.turn]
 
-    st.title(f"🎯 {player} ist dran")
+    st.markdown('<div class="title">🎯 QUIZ</div>', unsafe_allow_html=True)
 
-    # neue Frage
+    # =====================================================
+    # TURN DISPLAY
+    # =====================================================
+
+    st.markdown(
+        f"<div class='turn'>👉 Jetzt dran: {player}</div>",
+        unsafe_allow_html=True
+    )
+
+    # =====================================================
+    # PLAYERS
+    # =====================================================
+
+    cols = st.columns(len(st.session_state.players))
+
+    for i,p in enumerate(st.session_state.players):
+
+        style = "player-box active" if i == st.session_state.turn else "player-box"
+
+        with cols[i]:
+            st.markdown(
+                f"<div class='{style}'>{p}<br>{st.session_state.scores[i]} Punkte</div>",
+                unsafe_allow_html=True
+            )
+
+    # =====================================================
+    # NEW QUESTION
+    # =====================================================
+
     if st.session_state.q is None:
         st.session_state.q = random.choice(questions)
 
     q = st.session_state.q
 
-    st.write("---")
-
-    # =====================================================
-    # JOKER SYSTEM
-    # =====================================================
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-
-        if st.button("🎲 50/50 Joker"):
-
-            if "50" not in st.session_state.used_joker.get(player, {}):
-
-                if q["type"] == "abc":
-
-                    wrong = [o for o in q["o"] if o != q["a"]]
-
-                    q["o"] = [q["a"], random.choice(wrong)]
-
-                st.session_state.used_joker.setdefault(player, {})["50"] = True
-
-    with col2:
-
-        if st.button("⏭ Skip Joker"):
-
-            st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
-            st.session_state.q = None
-            st.rerun()
-
-    with col3:
-
-        if st.button("⭐ +1 Punkt Joker"):
-
-            if "bonus" not in st.session_state.used_joker.get(player, {}):
-
-                st.session_state.used_joker.setdefault(player, {})["bonus"] = True
-
-                st.session_state.scores[st.session_state.turn] += 1
-
-    # =====================================================
-    # FRAGE
-    # =====================================================
+    st.markdown(f"<div class='question'>{q['q']}</div>", unsafe_allow_html=True)
 
     answer = None
 
-    if q["type"] == "abc":
+    # =====================================================
+    # QUESTION TYPES
+    # =====================================================
 
-        answer = st.radio(q["q"], q["o"])
-
-    elif q["type"] == "tf":
-
-        answer = st.radio(q["q"], ["Wahr","Falsch"])
-
+    if "o" in q:
+        answer = st.radio("Antwort", q["o"])
+    elif isinstance(q["a"], bool):
+        answer = st.radio("Antwort", ["Wahr","Falsch"])
     else:
-
-        answer = st.number_input(q["q"], value=0)
+        answer = st.number_input("Antwort", value=0)
 
     # =====================================================
-    # CHECK BUTTON (WICHTIG FIX)
+    # CHECK ANSWER
     # =====================================================
 
     if st.button("✅ Antwort bestätigen"):
 
         correct = False
 
-        if q["type"] == "abc":
+        if "o" in q:
             correct = answer == q["a"]
 
-        elif q["type"] == "tf":
+        elif isinstance(q["a"], bool):
             correct = (answer == "Wahr") == q["a"]
 
         else:
             correct = abs(answer - q["a"]) <= q["a"] * 0.1
 
         if correct:
-            st.success("Richtig!")
+
             st.session_state.scores[st.session_state.turn] += 1
+
+            st.session_state.msg = "✅ +1 Punkt!"
+
         else:
-            st.error("Falsch!")
+
+            st.session_state.msg = "❌ Falsch!"
 
         st.session_state.q = None
         st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
@@ -163,11 +236,14 @@ else:
         st.rerun()
 
     # =====================================================
-    # SCOREBOARD
+    # FEEDBACK BOX
     # =====================================================
 
-    st.write("---")
-    st.subheader("🏆 Punkte")
+    if st.session_state.msg != "":
 
-    for p,s in zip(st.session_state.players, st.session_state.scores):
-        st.write(f"{p}: {s}")
+        st.markdown(f"<h2 style='text-align:center'>{st.session_state.msg}</h2>", unsafe_allow_html=True)
+
+        st.markdown(
+            f"<div class='points'>Aktuelle Punkte: {st.session_state.scores}</div>",
+            unsafe_allow_html=True
+        )
