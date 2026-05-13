@@ -107,9 +107,12 @@ st.markdown("""
 .player-box {
     padding:15px;
     border-radius:15px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15);
     text-align:center;
     font-weight:bold;
+    color:white;
+    font-size:22px;
+    text-shadow:0 0 10px black;
 }
 
 .active {
@@ -122,9 +125,12 @@ st.markdown("""
     font-size:34px;
     text-align:center;
     padding:30px;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.45);
     border-radius:20px;
     margin:20px 0;
+    color:white;
+    font-weight:bold;
+    text-shadow:0 0 10px black;
 }
 
 .turn {
@@ -133,13 +139,16 @@ st.markdown("""
     font-weight:900;
     color:#00ffd5;
     margin-bottom:20px;
+    text-shadow:0 0 10px black;
 }
 
 .points {
     text-align:center;
     font-size:24px;
     margin-top:10px;
-    color:#aaa;
+    color:white;
+    font-weight:bold;
+    text-shadow:0 0 10px black;
 }
 
 button {
@@ -148,31 +157,76 @@ button {
     font-weight:bold !important;
     background: linear-gradient(90deg,#00ffd5,#0099ff) !important;
     color:black !important;
+    font-size:18px !important;
 }
 
 /* =========================================
-   BESSERE ANTWORT BUTTONS
+   RADIO BUTTONS
 ========================================= */
 
 div[data-testid="stRadio"] label {
-    background: rgba(255,255,255,0.12);
-    padding: 15px;
+    background: rgba(255,255,255,0.15);
+    padding: 18px;
     border-radius: 15px;
-    margin-bottom: 10px;
-    border: 2px solid rgba(255,255,255,0.1);
-    font-size: 20px;
+    margin-bottom: 12px;
+    border: 2px solid rgba(255,255,255,0.2);
+    font-size: 22px;
     font-weight: bold;
     transition: 0.3s;
+    color: white !important;
+    text-shadow: 0 0 10px black;
 }
 
 div[data-testid="stRadio"] label:hover {
     border: 2px solid #00ffd5;
     box-shadow: 0 0 15px #00ffd5;
     transform: scale(1.02);
+    background: rgba(255,255,255,0.22);
 }
 
 div[data-testid="stRadio"] div {
     gap: 15px;
+}
+
+/* =========================================
+   LABELS
+========================================= */
+
+label, .stMarkdown, p, span {
+    color: white !important;
+    text-shadow: 0 0 8px black;
+}
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
+
+.stTextInput input,
+.stNumberInput input {
+    background: rgba(255,255,255,0.15) !important;
+    color: white !important;
+    border-radius: 12px !important;
+    border: 2px solid rgba(255,255,255,0.2) !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+/* =========================================
+   SELECTBOX / SLIDER
+========================================= */
+
+.stSelectbox div,
+.stSlider {
+    color: white !important;
+    text-shadow: 0 0 8px black;
+}
+
+/* =========================================
+   SIDEBAR FIX
+========================================= */
+
+section[data-testid="stSidebar"] * {
+    color: white !important;
 }
 
 </style>
