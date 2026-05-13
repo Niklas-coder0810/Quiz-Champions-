@@ -576,4 +576,266 @@
     "o": ["Rot", "Grün", "Gelb", "Blau"],
     "a": "Grün"
   }
-]
+,
+
+{
+  "q": "Welches Land hat die meisten offiziellen Amtssprachen?",
+  "o": ["Indien", "Südafrika", "Bolivien", "Schweiz"],
+  "a": "Südafrika"
+},
+{
+  "q": "Die UNO hat ihren Hauptsitz in Genf.",
+  "a": false
+},
+{
+  "q": "Wie viele Bundesländer hat Österreich?",
+  "a": 9
+},
+{
+  "q": "Welches Land hat keine Hauptstadt im klassischen Sinne?",
+  "o": ["Nauru", "Malta", "Island", "Luxemburg"],
+  "a": "Nauru"
+},
+{
+  "q": "Die EU hat eine gemeinsame Armee.",
+  "a": false
+},
+{
+  "q": "Welches Land war nie Teil der EU?",
+  "o": ["Norwegen", "Deutschland", "Frankreich", "Italien"],
+  "a": "Norwegen"
+},
+{
+  "q": "Wie viele Mitglieder hat der Sicherheitsrat der UNO?",
+  "a": 15
+},
+{
+  "q": "Der Euro wurde 1999 eingeführt.",
+  "a": true
+},
+{
+  "q": "Welche Stadt ist Sitz der Europäischen Zentralbank?",
+  "o": ["Berlin", "Frankfurt", "Brüssel", "Paris"],
+  "a": "Frankfurt"
+},
+{
+  "q": "Die Schweiz ist Mitglied der EU.",
+  "a": false
+},
+
+{
+  "q": "Wie viele Knochen hat ein Mensch ungefähr?",
+  "a": 206
+},
+{
+  "q": "DNA steht für Desoxyribonukleinsäure.",
+  "a": true
+},
+{
+  "q": "Welches Organ produziert Insulin?",
+  "o": ["Leber", "Pankreas", "Magen", "Niere"],
+  "a": "Pankreas"
+},
+{
+  "q": "Der menschliche Körper hat 5 Sinne.",
+  "a": true
+},
+{
+  "q": "Wie viele Chromosomen hat ein Mensch?",
+  "a": 46
+},
+
+{
+  "q": "Welche Einheit hat elektrische Spannung?",
+  "o": ["Volt", "Ampere", "Watt", "Ohm"],
+  "a": "Volt"
+},
+{
+  "q": "Licht ist langsamer als Schall.",
+  "a": false
+},
+{
+  "q": "Wie viele Planeten hat unser Sonnensystem?",
+  "a": 8
+},
+{
+  "q": "Der Mond ist ein Planet.",
+  "a": false
+},
+{
+  "q": "Welche Kraft wirkt zwischen allen Massen?",
+  "o": ["Magnetismus", "Gravitation", "Reibung", "Elektrizität"],
+  "a": "Gravitation"
+},
+
+{
+  "q": "Welches Land hat die größte Bevölkerung?",
+  "o": ["USA", "Indien", "China", "Russland"],
+  "a": "Indien"
+},
+{
+  "q": "Afrika ist ein Kontinent.",
+  "a": true
+},
+{
+  "q": "Der Nil ist der längste Fluss der Welt.",
+  "a": false
+},
+{
+  "q": "Wie viele Ozeane gibt es?",
+  "a": 5
+},
+{
+  "q": "Die Sahara ist die größte Wüste der Welt.",
+  "a": true
+},
+
+{
+  "q": "Welche Blutgruppe ist Universalspender?",
+  "o": ["A", "B", "AB", "0 negativ"],
+  "a": "0 negativ"
+},
+{
+  "q": "Der Mensch hat mehr als 600 Muskeln.",
+  "a": true
+},
+{
+  "q": "Welche Zellen transportieren Sauerstoff im Blut?",
+  "o": ["Leukozyten", "Erythrozyten", "Thrombozyten", "Plasma"],
+  "a": "Erythrozyten"
+},
+{
+  "q": "Pflanzen betreiben Photosynthese.",
+  "a": true
+},
+{
+  "q": "Das Herz hat 4 Kammern.",
+  "a": true
+},
+
+{
+  "q": "Wie viele Bits hat ein Byte?",
+  "a": 8
+},
+{
+  "q": "Python ist eine Programmiersprache.",
+  "a": true
+},
+{
+  "q": "HTML ist eine Programmiersprache.",
+  "a": false
+},
+{
+  "q": "CPU steht für Central Processing Unit.",
+  "a": true
+},
+{
+  "q": "RAM ist permanenter Speicher.",
+  "a": false
+},
+
+{
+  "q": "Alle Dreiecke haben 3 Seiten.",
+  "a": true
+},
+{
+  "q": "Ein Quadrat ist ein Rechteck.",
+  "a": true
+},
+{
+  "q": "Eine Primzahl ist durch mehr als 2 Zahlen teilbar.",
+  "a": false
+},
+{
+  "q": "0 ist eine gerade Zahl.",
+  "a": true
+},
+{
+  "q": "Eine Million hat 6 Nullen.",
+  "a": true
+},
+
+{
+  "q": "Der Mars hat zwei Monde.",
+  "a": true
+},
+{
+  "q": "Jupiter ist der größte Planet.",
+  "a": true
+},
+{
+  "q": "Venus ist der heißeste Planet.",
+  "a": true
+},
+{
+  "q": "Neptun ist näher an der Sonne als Saturn.",
+  "a": false
+},
+{
+  "q": "Saturn hat Ringe.",
+  "a": true
+},
+
+{
+  "q": "Die Erde braucht 365 Tage für eine Umlaufbahn.",
+  "a": true
+},
+{
+  "q": "Ein Schaltjahr hat 366 Tage.",
+  "a": true
+},
+{
+  "q": "Ein Tag hat 100 Stunden.",
+  "a": false
+},
+{
+  "q": "Eine Stunde hat 3600 Sekunden.",
+  "a": true
+},
+{
+  "q": "Ein Jahr hat ungefähr 52 Wochen.",
+  "a": true
+},
+
+{
+  "q": "Deutschland hat 16 Bundesländer.",
+  "a": true
+},
+{
+  "q": "Berlin ist ein eigenes Bundesland.",
+  "a": true
+},
+{
+  "q": "Österreich hat 10 Bundesländer.",
+  "a": false
+},
+{
+  "q": "Die Hauptstadt von Kanada ist Toronto.",
+  "a": false
+},
+{
+  "q": "Die Hauptstadt von Australien ist Sydney.",
+  "a": false
+},
+
+{
+  "q": "Der Mensch atmet Sauerstoff ein.",
+  "a": true
+},
+{
+  "q": "Menschen atmen Stickstoff ein.",
+  "a": false
+},
+{
+  "q": "Blut ist rot wegen Hämoglobin.",
+  "a": true
+},
+{
+  "q": "Der Mensch hat zwei Lungenflügel.",
+  "a": true
+},
+{
+  "q": "Der Magen produziert Insulin.",
+  "a": false
+}
+
