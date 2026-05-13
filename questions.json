@@ -5,6 +5,26 @@
     "a": "Berlin"
   },
   {
+    "q": "Hauptstadt von Frankreich?",
+    "o": ["Paris", "Berlin", "Wien", "Rom"],
+    "a": "Paris"
+  },
+  {
+    "q": "Hauptstadt von Italien?",
+    "o": ["Mailand", "Rom", "Neapel", "Turin"],
+    "a": "Rom"
+  },
+  {
+    "q": "Hauptstadt von Spanien?",
+    "o": ["Barcelona", "Madrid", "Valencia", "Sevilla"],
+    "a": "Madrid"
+  },
+  {
+    "q": "Hauptstadt von Portugal?",
+    "o": ["Porto", "Lissabon", "Braga", "Faro"],
+    "a": "Lissabon"
+  },
+  {
     "q": "Welcher Planet ist der größte?",
     "o": ["Mars", "Jupiter", "Venus", "Saturn"],
     "a": "Jupiter"
@@ -15,12 +35,164 @@
     "a": "7"
   },
   {
-    "q": "Wasser gefriert bei 0°C.",
-    "a": true
+    "q": "Wie viele Tage hat ein normales Jahr?",
+    "o": ["360", "365", "366", "364"],
+    "a": "365"
+  },
+  {
+    "q": "Wie viele Minuten hat eine Stunde?",
+    "o": ["30", "45", "60", "90"],
+    "a": "60"
+  },
+  {
+    "q": "Wie viele Sekunden hat eine Minute?",
+    "o": ["30", "60", "90", "120"],
+    "a": "60"
+  },
+  {
+    "q": "Welcher Ozean ist der größte?",
+    "o": ["Atlantik", "Indischer", "Pazifik", "Arktischer"],
+    "a": "Pazifik"
+  },
+  {
+    "q": "Welches Tier ist das schnellste Landtier?",
+    "o": ["Löwe", "Tiger", "Gepard", "Pferd"],
+    "a": "Gepard"
   },
   {
     "q": "Wie viele Bundesländer hat Deutschland?",
-    "o": ["16", "14", "18", "12"],
+    "o": ["14", "15", "16", "17"],
     "a": "16"
+  },
+  {
+    "q": "Welche Farbe entsteht aus Blau und Gelb?",
+    "o": ["Rot", "Grün", "Lila", "Orange"],
+    "a": "Grün"
+  },
+  {
+    "q": "Wie viele Beine hat eine Spinne?",
+    "o": ["6", "8", "10", "12"],
+    "a": "8"
+  },
+  {
+    "q": "Wie heißt unser Planet?",
+    "o": ["Mars", "Venus", "Erde", "Saturn"],
+    "a": "Erde"
+  },
+  {
+    "q": "Welches Gas atmen Menschen hauptsächlich ein?",
+    "o": ["Sauerstoff", "Helium", "Wasserstoff", "Stickstoff"],
+    "a": "Sauerstoff"
+  },
+  {
+    "q": "Wie viele Stunden hat ein Tag?",
+    "o": ["12", "18", "24", "30"],
+    "a": "24"
+  },
+  {
+    "q": "Welcher Kontinent ist der größte?",
+    "o": ["Afrika", "Europa", "Asien", "Australien"],
+    "a": "Asien"
+  },
+  {
+    "q": "Welche Sprache spricht man in Brasilien hauptsächlich?",
+    "o": ["Spanisch", "Portugiesisch", "Englisch", "Französisch"],
+    "a": "Portugiesisch"
+  },
+  {
+    "q": "Die Sonne ist ein Stern.",
+    "a": true
+  },
+  {
+    "q": "Wasser gefriert bei 0 Grad Celsius.",
+    "a": true
+  },
+  {
+    "q": "Ein Jahr hat 500 Tage.",
+    "a": false
+  },
+  {
+    "q": "Ein Mensch hat 206 Knochen.",
+    "a": true
+  },
+  {
+    "q": "Der Mond ist größer als die Erde.",
+    "a": false
+  },
+  {
+    "q": "Haie sind Säugetiere.",
+    "a": false
+  },
+  {
+    "q": "Pinguine können fliegen.",
+    "a": false
+  },
+  {
+    "q": "Blitze sind heißer als die Oberfläche der Sonne.",
+    "a": true
+  },
+  {
+    "q": "Der Amazonas ist der längste Fluss der Welt.",
+    "a": false
+  },
+  {
+    "q": "Der Mount Everest ist der höchste Berg der Erde.",
+    "a": true
+  },
+  {
+    "q": "Wie viele Spieler hat eine Fußballmannschaft auf dem Feld?",
+    "o": ["9", "10", "11", "12"],
+    "a": "11"
+  },
+  {
+    "q": "Welche Farbe hat ein Smaragd?",
+    "o": ["Blau", "Rot", "Grün", "Gelb"],
+    "a": "Grün"
+  },
+  {
+    "q": "Wie viele Monate hat ein Jahr?",
+    "o": ["10", "11", "12", "13"],
+    "a": "12"
+  },
+  {
+    "q": "Welches Tier wird oft als König der Tiere bezeichnet?",
+    "o": ["Tiger", "Elefant", "Löwe", "Bär"],
+    "a": "Löwe"
+  },
+  {
+    "q": "Welches Instrument hat schwarze und weiße Tasten?",
+    "o": ["Gitarre", "Klavier", "Flöte", "Trommel"],
+    "a": "Klavier"
+  },
+  {
+    "q": "Wie viele Seiten hat ein Würfel?",
+    "o": ["4", "6", "8", "10"],
+    "a": "6"
+  },
+  {
+    "q": "Welcher Planet ist der Sonne am nächsten?",
+    "o": ["Mars", "Venus", "Merkur", "Jupiter"],
+    "a": "Merkur"
+  },
+  {
+    "q": "Wie heißt das größte Tier der Welt?",
+    "o": ["Elefant", "Blauwal", "Hai", "Giraffe"],
+    "a": "Blauwal"
+  },
+  {
+    "q": "Welches Metall ist flüssig bei Raumtemperatur?",
+    "o": ["Gold", "Silber", "Quecksilber", "Kupfer"],
+    "a": "Quecksilber"
+  },
+  {
+    "q": "Wie viele Herzen hat ein Oktopus?",
+    "o": ["1", "2", "3", "4"],
+    "a": "3"
+  },
+  {
+    "q": "Welche Farbe haben Bananen normalerweise?",
+    "o": ["Blau", "Rot", "Gelb", "Lila"],
+    "a": "Gelb"
   }
+
 ]
