@@ -1,6 +1,5 @@
 import streamlit as st
 import random
-import time
 import json
 
 # =========================================================
@@ -10,33 +9,35 @@ import json
 st.set_page_config(page_title="Quiz Battle", layout="wide")
 
 # =========================================================
-# STATE
+# SESSION STATE
 # =========================================================
 
 def init():
-    if "started" not in st.session_state:
-        st.session_state.started = False
-    if "players" not in st.session_state:
-        st.session_state.players = []
-    if "scores" not in st.session_state:
-        st.session_state.scores = []
-    if "turn" not in st.session_state:
-        st.session_state.turn = 0
-    if "q" not in st.session_state:
-        st.session_state.q = None
-    if "msg" not in st.session_state:
-        st.session_state.msg = ""
+    defaults = {
+        "started": False,
+        "players": [],
+        "scores": [],
+        "turn": 0,
+        "q": None,
+        "msg": "",
+        "used_questions": []
+    }
+
+    for k, v in defaults.items():
+        if k not in st.session_state:
+            st.session_state[k] = v
 
 init()
 
 # =========================================================
-# 🔥 LOAD QUESTIONS FROM FILE
+# LOAD QUESTIONS
 # =========================================================
 
 @st.cache_data
 def load_questions():
     with open("questions.json", "r", encoding="utf-8") as f:
         data = json.load(f)
+
     random.shuffle(data)
     return data
 
@@ -44,7 +45,28 @@ if "bank" not in st.session_state:
     st.session_state.bank = load_questions()
 
 # =========================================================
-# BACKGROUND DESIGN (EXAKT GLEICH BLEIBEND)
+# GET RANDOM UNUSED QUESTION
+# =========================================================
+
+def get_question():
+
+    available = [
+        q for i, q in enumerate(st.session_state.bank)
+        if i not in st.session_state.used_questions
+    ]
+
+    if not available:
+        return None
+
+    q = random.choice(available)
+
+    index = st.session_state.bank.index(q)
+    st.session_state.used_questions.append(index)
+
+    return q
+
+# =========================================================
+# DESIGN
 # =========================================================
 
 st.markdown("""
@@ -67,13 +89,6 @@ st.markdown("""
     font-size:70px;
     font-weight:900;
     text-shadow:0 0 25px #00ffd5;
-}
-
-.card {
-    background: rgba(255,255,255,0.12);
-    padding:25px;
-    border-radius:25px;
-    backdrop-filter: blur(15px);
 }
 
 .player-box {
@@ -107,13 +122,6 @@ st.markdown("""
     margin-bottom:20px;
 }
 
-.points {
-    text-align:center;
-    font-size:24px;
-    margin-top:10px;
-    color:#aaa;
-}
-
 button {
     border-radius:15px !important;
     height:60px !important;
@@ -126,27 +134,35 @@ button {
 """, unsafe_allow_html=True)
 
 # =========================================================
-# START
+# START SCREEN
 # =========================================================
 
 if not st.session_state.started:
 
-    st.markdown('<div class="title">🧠 QUIZ BATTLE</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="title">🧠 QUIZ BATTLE</div>',
+        unsafe_allow_html=True
+    )
 
-    count = st.selectbox("Spieler", [1,2,3,4])
+    count = st.selectbox("Spieleranzahl", [1,2,3,4])
 
     players = []
 
     for i in range(count):
+
         name = st.text_input(f"Spieler {i+1}")
-        if name == "":
+
+        if not name:
             name = f"Spieler {i+1}"
+
         players.append(name)
 
     if st.button("🚀 START"):
+
         st.session_state.started = True
         st.session_state.players = players
-        st.session_state.scores = [0]*count
+        st.session_state.scores = [0] * count
+
         st.rerun()
 
 # =========================================================
@@ -155,9 +171,48 @@ if not st.session_state.started:
 
 else:
 
+    # =========================================
+    # NEW QUESTION
+    # =========================================
+
+    if st.session_state.q is None:
+        st.session_state.q = get_question()
+
+    # =========================================
+    # END GAME
+    # =========================================
+
+    if st.session_state.q is None:
+
+        st.title("🏁 Keine Fragen mehr!")
+
+        winner_index = st.session_state.scores.index(
+            max(st.session_state.scores)
+        )
+
+        winner = st.session_state.players[winner_index]
+
+        st.success(f"🎉 Gewinner: {winner}")
+
+        st.write("Punkte:")
+
+        for i, p in enumerate(st.session_state.players):
+            st.write(f"{p}: {st.session_state.scores[i]}")
+
+        st.stop()
+
+    q = st.session_state.q
+
+    # =========================================
+    # PLAYER INFO
+    # =========================================
+
     player = st.session_state.players[st.session_state.turn]
 
-    st.markdown('<div class="title">🎯 QUIZ</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="title">🎯 QUIZ</div>',
+        unsafe_allow_html=True
+    )
 
     st.markdown(
         f"<div class='turn'>👉 Jetzt dran: {player}</div>",
@@ -166,9 +221,13 @@ else:
 
     cols = st.columns(len(st.session_state.players))
 
-    for i,p in enumerate(st.session_state.players):
+    for i, p in enumerate(st.session_state.players):
 
-        style = "player-box active" if i == st.session_state.turn else "player-box"
+        style = (
+            "player-box active"
+            if i == st.session_state.turn
+            else "player-box"
+        )
 
         with cols[i]:
             st.markdown(
@@ -176,58 +235,104 @@ else:
                 unsafe_allow_html=True
             )
 
-    # =====================================================
-    # QUESTION FROM FILE (FIXED)
-    # =====================================================
+    # =========================================
+    # QUESTION
+    # =========================================
 
-    if st.session_state.q is None:
-        st.session_state.q = random.choice(st.session_state.bank)
-
-    q = st.session_state.q
-
-    st.markdown(f"<div class='question'>{q['q']}</div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div class='question'>{q['q']}</div>",
+        unsafe_allow_html=True
+    )
 
     answer = None
 
+    # Multiple Choice
     if "o" in q:
-        answer = st.radio("Antwort", q["o"])
-    elif isinstance(q["a"], bool):
-        answer = st.radio("Antwort", ["Wahr","Falsch"])
-    else:
-        answer = st.number_input("Antwort", value=0)
 
-    # =====================================================
-    # CHECK
-    # =====================================================
+        answer = st.radio(
+            "Antwort",
+            q["o"]
+        )
+
+    # True / False
+    elif isinstance(q["a"], bool):
+
+        answer = st.radio(
+            "Antwort",
+            ["Wahr", "Falsch"]
+        )
+
+    # Number
+    else:
+
+        answer = st.number_input(
+            "Antwort",
+            value=0.0
+        )
+
+    # =========================================
+    # CHECK ANSWER
+    # =========================================
 
     if st.button("✅ Antwort bestätigen"):
 
         correct = False
 
         if "o" in q:
+
             correct = answer == q["a"]
 
         elif isinstance(q["a"], bool):
-            correct = (answer == "Wahr") == q["a"]
+
+            correct = (
+                (answer == "Wahr") == q["a"]
+            )
 
         else:
+
             correct = abs(answer - q["a"]) <= 0.1
 
+        # =====================================
+        # POINTS
+        # =====================================
+
         if correct:
-            st.session_state.scores[st.session_state.turn] += 1
-            st.session_state.msg = "✅ +1 Punkt!"
+
+            st.session_state.scores[
+                st.session_state.turn
+            ] += 1
+
+            st.session_state.msg = "✅ Richtig!"
+
         else:
-            st.session_state.msg = "❌ Falsch!"
+
+            st.session_state.msg = (
+                f"❌ Falsch! Richtige Antwort: {q['a']}"
+            )
+
+        # =====================================
+        # NEXT TURN
+        # =====================================
+
+        st.session_state.turn = (
+            st.session_state.turn + 1
+        ) % len(st.session_state.players)
 
         st.session_state.q = None
-        st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
 
         st.rerun()
 
-    # =====================================================
-    # FEEDBACK
-    # =====================================================
+    # =========================================
+    # MESSAGE
+    # =========================================
 
     if st.session_state.msg:
-        st.markdown(f"<h2 style='text-align:center'>{st.session_state.msg}</h2>", unsafe_allow_html=True)
-        st.markdown(f"<div class='points'>Aktuelle Punkte: {st.session_state.scores}</div>", unsafe_allow_html=True)
+
+        st.markdown(
+            f"""
+            <h2 style='text-align:center'>
+            {st.session_state.msg}
+            </h2>
+            """,
+            unsafe_allow_html=True
+        )
