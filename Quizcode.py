@@ -167,37 +167,48 @@ button {
     font-size:18px !important;
 }
 
-/* RADIO */
+/* =====================================================
+   RADIO (FIX: WEIß + LESBAR)
+===================================================== */
 
 div[data-testid="stRadio"] label {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.12);
     padding: 18px;
     border-radius: 15px;
     margin-bottom: 12px;
-    border: 2px solid rgba(255,255,255,0.2);
-    
-    /* 🔥 VERBESSERT FÜR LESBARKEIT */
-    font-size: 26px !important;
-    font-weight: 900 !important;
-    color: #ffffff !important;
-    text-shadow: 0 0 6px #000, 0 0 12px #000;
+    border: 2px solid rgba(255,255,255,0.25);
 
-    transition: 0.3s;
+    color: white !important;
+    font-size: 24px !important;
+    font-weight: 900 !important;
+
+    text-shadow: 0 0 6px black, 0 0 12px black;
 }
 
+/* TEXT INNERHALB RADIO (WICHTIGSTES FIX) */
+div[data-testid="stRadio"] * {
+    color: white !important;
+}
+
+/* BaseWeb Radio Fix */
+div[data-baseweb="radio"] span {
+    color: white !important;
+    font-weight: 900 !important;
+    font-size: 22px !important;
+}
+
+/* Label Text nochmal erzwingen */
+div[role="radiogroup"] label span {
+    color: white !important;
+    text-shadow: 0 0 6px black;
+}
+
+/* Hover Effekt */
 div[data-testid="stRadio"] label:hover {
     border: 2px solid #00ffd5;
     box-shadow: 0 0 15px #00ffd5;
     transform: scale(1.02);
-    background: rgba(255,255,255,0.22);
-}
-
-/* EXTRA FIX: sichtbarer Text innerhalb der Radio Buttons */
-div[data-testid="stRadio"] span {
-    color: white !important;
-    font-weight: 900 !important;
-    font-size: 24px !important;
-    text-shadow: 0 0 6px black, 0 0 12px black;
+    background: rgba(255,255,255,0.18);
 }
 
 /* INPUT FIX */
@@ -296,10 +307,6 @@ else:
         st.session_state.turn
     ]
 
-    # =====================================================
-    # HOME BUTTON
-    # =====================================================
-
     top1, top2 = st.columns([8,2])
 
     with top2:
@@ -330,23 +337,11 @@ else:
         unsafe_allow_html=True
     )
 
-    # =====================================================
-    # PLAYER BOXES
-    # =====================================================
+    cols = st.columns(len(st.session_state.players))
 
-    cols = st.columns(
-        len(st.session_state.players)
-    )
+    for i,p in enumerate(st.session_state.players):
 
-    for i,p in enumerate(
-        st.session_state.players
-    ):
-
-        style = (
-            "player-box active"
-            if i == st.session_state.turn
-            else "player-box"
-        )
+        style = "player-box active" if i == st.session_state.turn else "player-box"
 
         with cols[i]:
 
@@ -365,10 +360,6 @@ else:
                 unsafe_allow_html=True
             )
 
-    # =====================================================
-    # QUESTION
-    # =====================================================
-
     if st.session_state.q is None:
         st.session_state.q = get_question()
 
@@ -377,14 +368,9 @@ else:
     if q is None:
 
         st.markdown(
-            """
-            <div class='title'>
-            🏁 Keine Fragen mehr!
-            </div>
-            """,
+            "<div class='title'>🏁 Keine Fragen mehr!</div>",
             unsafe_allow_html=True
         )
-
         st.stop()
 
     st.markdown(
@@ -392,39 +378,23 @@ else:
         unsafe_allow_html=True
     )
 
-    # =====================================================
-    # 50/50 JOKER
-    # =====================================================
-
     options = q["o"][:] if "o" in q else None
 
     current_player = st.session_state.turn
 
-    if (
-        "o" in q
-        and not st.session_state.joker_used[current_player]
-    ):
+    if "o" in q and not st.session_state.joker_used[current_player]:
 
         if st.button("🃏 50/50 Joker"):
 
             correct = q["a"]
 
-            wrong = [
-                o for o in q["o"]
-                if o != correct
-            ]
+            wrong = [o for o in q["o"] if o != correct]
 
             remove = random.sample(wrong, 2)
 
-            options = [
-                o for o in q["o"]
-                if o not in remove
-            ]
+            options = [o for o in q["o"] if o not in remove]
 
-            st.session_state.joker_used[
-                current_player
-            ] = True
-
+            st.session_state.joker_used[current_player] = True
             st.session_state.reduced_options = options
 
     if "reduced_options" in st.session_state:
@@ -432,121 +402,58 @@ else:
 
     answer = None
 
-    # =====================================================
-    # MULTIPLE CHOICE
-    # =====================================================
-
     if "o" in q:
 
-        answer = st.radio(
-            "Antwort auswählen",
-            options
-        )
-
-    # =====================================================
-    # TRUE FALSE
-    # =====================================================
+        answer = st.radio("Antwort auswählen", options)
 
     elif isinstance(q["a"], bool):
 
-        answer = st.radio(
-            "Antwort auswählen",
-            ["Wahr","Falsch"]
-        )
-
-    # =====================================================
-    # NUMBER
-    # =====================================================
+        answer = st.radio("Antwort auswählen", ["Wahr","Falsch"])
 
     else:
 
-        answer = st.number_input(
-            "Schätz deine Antwort",
-            value=0.0
-        )
-
-    # =====================================================
-    # CHECK
-    # =====================================================
+        answer = st.number_input("Schätz deine Antwort", value=0.0)
 
     if st.button("✅ Antwort bestätigen"):
 
         correct = False
 
         if "o" in q:
-
             correct = answer == q["a"]
 
         elif isinstance(q["a"], bool):
-
-            correct = (
-                (answer == "Wahr") == q["a"]
-            )
+            correct = (answer == "Wahr") == q["a"]
 
         else:
-
             tolerance = q["a"] * 0.1
-
-            correct = (
-                abs(answer - q["a"]) <= tolerance
-            )
-
-        # =================================================
-        # RESULT
-        # =================================================
+            correct = abs(answer - q["a"]) <= tolerance
 
         if correct:
 
-            st.session_state.scores[
-                st.session_state.turn
-            ] += 1
-
+            st.session_state.scores[st.session_state.turn] += 1
             st.session_state.msg = "✅ +1 Punkt!"
 
-            if (
-                st.session_state.scores[
-                    st.session_state.turn
-                ]
-                >= st.session_state.max_points
-            ):
-
+            if st.session_state.scores[st.session_state.turn] >= st.session_state.max_points:
                 st.session_state.winner = player
 
         else:
-
-            st.session_state.msg = (
-                f"❌ Falsch! Richtige Antwort: {q['a']}"
-            )
-
-        # =================================================
-        # NEXT TURN
-        # =================================================
+            st.session_state.msg = f"❌ Falsch! Richtige Antwort: {q['a']}"
 
         st.session_state.q = None
 
         if "reduced_options" in st.session_state:
             del st.session_state.reduced_options
 
-        st.session_state.turn = (
-            st.session_state.turn + 1
-        ) % len(st.session_state.players)
+        st.session_state.turn = (st.session_state.turn + 1) % len(st.session_state.players)
 
         st.rerun()
-
-    # =====================================================
-    # WINNER
-    # =====================================================
 
     if st.session_state.winner:
 
         st.balloons()
 
         st.markdown(
-            f"""
-            <div class='title'>
-            🏆 {st.session_state.winner} GEWINNT!
-            </div>
-            """,
+            f"<div class='title'>🏆 {st.session_state.winner} GEWINNT!</div>",
             unsafe_allow_html=True
         )
 
@@ -559,27 +466,14 @@ else:
 
         st.stop()
 
-    # =====================================================
-    # FEEDBACK
-    # =====================================================
-
     if st.session_state.msg:
 
         st.markdown(
-            f"""
-            <h2 style='text-align:center'>
-            {st.session_state.msg}
-            </h2>
-            """,
+            f"<h2 style='text-align:center'>{st.session_state.msg}</h2>",
             unsafe_allow_html=True
         )
 
         st.markdown(
-            f"""
-            <div class='points'>
-            Aktuelle Punkte:
-            {st.session_state.scores}
-            </div>
-            """,
+            f"<div class='points'>Aktuelle Punkte: {st.session_state.scores}</div>",
             unsafe_allow_html=True
         )
