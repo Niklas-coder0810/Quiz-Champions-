@@ -23,7 +23,9 @@ def init():
         "msg": "",
         "used_questions": [],
         "max_points": 10,
-        "winner": None
+        "winner": None,
+        "skins": [],
+        "joker_used": []
     }
 
     for k, v in defaults.items():
@@ -33,7 +35,20 @@ def init():
 init()
 
 # =========================================================
-# 🔥 LOAD QUESTIONS FROM FILE
+# CHARACTER SKINS
+# =========================================================
+
+CHARACTERS = {
+    "🐼 Panda": "🐼",
+    "🦊 Fuchs": "🦊",
+    "🐸 Frosch": "🐸",
+    "🐯 Tiger": "🐯",
+    "🦄 Unicorn": "🦄",
+    "🤖 Roboter": "🤖"
+}
+
+# =========================================================
+# LOAD QUESTIONS
 # =========================================================
 
 @st.cache_data
@@ -72,7 +87,7 @@ def get_question():
     return q
 
 # =========================================================
-# BACKGROUND DESIGN
+# CSS
 # =========================================================
 
 st.markdown("""
@@ -95,13 +110,6 @@ st.markdown("""
     font-size:70px;
     font-weight:900;
     text-shadow:0 0 25px #00ffd5;
-}
-
-.card {
-    background: rgba(255,255,255,0.12);
-    padding:25px;
-    border-radius:25px;
-    backdrop-filter: blur(15px);
 }
 
 .player-box {
@@ -148,7 +156,6 @@ st.markdown("""
     margin-top:10px;
     color:white;
     font-weight:bold;
-    text-shadow:0 0 10px black;
 }
 
 button {
@@ -160,9 +167,7 @@ button {
     font-size:18px !important;
 }
 
-/* =========================================
-   RADIO BUTTONS
-========================================= */
+/* RADIO */
 
 div[data-testid="stRadio"] label {
     background: rgba(255,255,255,0.15);
@@ -184,145 +189,41 @@ div[data-testid="stRadio"] label:hover {
     background: rgba(255,255,255,0.22);
 }
 
-div[data-testid="stRadio"] div {
-    gap: 15px;
-}
+/* INPUT FIX */
 
-/* =========================================
-   LABELS
-========================================= */
-
-label, .stMarkdown, p, span {
-    color: white !important;
-    text-shadow: 0 0 8px black;
-}
-
-/* =========================================
-   INPUT FIELDS
-========================================= */
-
-.stTextInput input,
-.stNumberInput input {
-    background: rgba(255,255,255,0.15) !important;
-    color: white !important;
-    border-radius: 12px !important;
-    border: 2px solid rgba(255,255,255,0.2) !important;
-    font-size: 20px !important;
+.stSelectbox div[data-baseweb="select"] > div {
+    color: black !important;
+    background: white !important;
     font-weight: bold !important;
 }
 
-/* =========================================
-   SELECTBOX / SLIDER
-========================================= */
-
-.stSelectbox div,
-.stSlider {
-    color: white !important;
-    text-shadow: 0 0 8px black;
+div[role="option"] {
+    color: black !important;
+    background: white !important;
 }
 
-/* =========================================
-   SIDEBAR FIX
-========================================= */
+.stNumberInput input {
+    color: black !important;
+    background: white !important;
+    font-weight: bold !important;
+}
 
-section[data-testid="stSidebar"] * {
+.stTextInput input {
+    color: black !important;
+    background: white !important;
+    font-weight: bold !important;
+}
+
+label {
     color: white !important;
+    font-weight: bold !important;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # =========================================================
-# BACKGROUND DESIGN
-# =========================================================
-
-st.markdown("""
-<style>
-
-.stApp {
-    background:
-    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
-    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
-
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-
-    color: white;
-}
-
-.title {
-    text-align:center;
-    font-size:70px;
-    font-weight:900;
-    text-shadow:0 0 25px #00ffd5;
-}
-
-.card {
-    background: rgba(255,255,255,0.12);
-    padding:25px;
-    border-radius:25px;
-    backdrop-filter: blur(15px);
-}
-
-.player-box {
-    padding:15px;
-    border-radius:15px;
-    background: rgba(255,255,255,0.15);
-    text-align:center;
-    font-weight:bold;
-    color:white;
-    font-size:22px;
-    text-shadow:0 0 10px black;
-}
-
-.active {
-    border:2px solid #00ffd5;
-    box-shadow:0 0 20px #00ffd5;
-    transform: scale(1.05);
-}
-
-.question {
-    font-size:34px;
-    text-align:center;
-    padding:30px;
-    background: rgba(0,0,0,0.45);
-    border-radius:20px;
-    margin:20px 0;
-    color:white;
-    font-weight:bold;
-    text-shadow:0 0 10px black;
-}
-
-.turn {
-    text-align:center;
-    font-size:32px;
-    font-weight:900;
-    color:#00ffd5;
-    margin-bottom:20px;
-    text-shadow:0 0 10px black;
-}
-
-.points {
-    text-align:center;
-    font-size:24px;
-    margin-top:10px;
-    color:white;
-    font-weight:bold;
-    text-shadow:0 0 10px black;
-}
-
-button {
-    border-radius:15px !important;
-    height:60px !important;
-    font-weight:bold !important;
-    background: linear-gradient(90deg,#00ffd5,#0099ff) !important;
-    color:black !important;
-    font-size:18px !important;
-}
-
-# =========================================================
-# START
+# START SCREEN
 # =========================================================
 
 if not st.session_state.started:
@@ -333,13 +234,9 @@ if not st.session_state.started:
     )
 
     count = st.selectbox(
-        "Spieler",
+        "Spieleranzahl",
         [1,2,3,4]
     )
-
-    # =========================================
-    # MAX POINTS
-    # =========================================
 
     max_points = st.slider(
         "🏆 Bis wie viele Punkte?",
@@ -349,6 +246,7 @@ if not st.session_state.started:
     )
 
     players = []
+    skins = []
 
     for i in range(count):
 
@@ -357,7 +255,14 @@ if not st.session_state.started:
         if name == "":
             name = f"Spieler {i+1}"
 
+        skin = st.selectbox(
+            f"Charakter Spieler {i+1}",
+            list(CHARACTERS.keys()),
+            key=f"skin_{i}"
+        )
+
         players.append(name)
+        skins.append(CHARACTERS[skin])
 
     if st.button("🚀 START"):
 
@@ -365,6 +270,8 @@ if not st.session_state.started:
         st.session_state.players = players
         st.session_state.scores = [0]*count
         st.session_state.max_points = max_points
+        st.session_state.skins = skins
+        st.session_state.joker_used = [False]*count
 
         st.rerun()
 
@@ -378,9 +285,9 @@ else:
         st.session_state.turn
     ]
 
-    # =========================================
+    # =====================================================
     # HOME BUTTON
-    # =========================================
+    # =====================================================
 
     top1, top2 = st.columns([8,2])
 
@@ -403,10 +310,6 @@ else:
         unsafe_allow_html=True
     )
 
-    # =========================================
-    # TARGET SCORE
-    # =========================================
-
     st.markdown(
         f"""
         <h3 style='text-align:center;color:white'>
@@ -415,6 +318,10 @@ else:
         """,
         unsafe_allow_html=True
     )
+
+    # =====================================================
+    # PLAYER BOXES
+    # =====================================================
 
     cols = st.columns(
         len(st.session_state.players)
@@ -435,8 +342,13 @@ else:
             st.markdown(
                 f"""
                 <div class='{style}'>
+                <div style='font-size:55px'>
+                {st.session_state.skins[i]}
+                </div>
+
                 {p}<br>
-                {st.session_state.scores[i]} Punkte
+
+                ⭐ {st.session_state.scores[i]} Punkte
                 </div>
                 """,
                 unsafe_allow_html=True
@@ -451,10 +363,6 @@ else:
 
     q = st.session_state.q
 
-    # =========================================
-    # NO QUESTIONS LEFT
-    # =========================================
-
     if q is None:
 
         st.markdown(
@@ -466,13 +374,6 @@ else:
             unsafe_allow_html=True
         )
 
-        if st.button("🔄 Neues Spiel"):
-
-            for key in list(st.session_state.keys()):
-                del st.session_state[key]
-
-            st.rerun()
-
         st.stop()
 
     st.markdown(
@@ -480,22 +381,60 @@ else:
         unsafe_allow_html=True
     )
 
+    # =====================================================
+    # 50/50 JOKER
+    # =====================================================
+
+    options = q["o"][:] if "o" in q else None
+
+    current_player = st.session_state.turn
+
+    if (
+        "o" in q
+        and not st.session_state.joker_used[current_player]
+    ):
+
+        if st.button("🃏 50/50 Joker"):
+
+            correct = q["a"]
+
+            wrong = [
+                o for o in q["o"]
+                if o != correct
+            ]
+
+            remove = random.sample(wrong, 2)
+
+            options = [
+                o for o in q["o"]
+                if o not in remove
+            ]
+
+            st.session_state.joker_used[
+                current_player
+            ] = True
+
+            st.session_state.reduced_options = options
+
+    if "reduced_options" in st.session_state:
+        options = st.session_state.reduced_options
+
     answer = None
 
-    # =========================================
+    # =====================================================
     # MULTIPLE CHOICE
-    # =========================================
+    # =====================================================
 
     if "o" in q:
 
         answer = st.radio(
             "Antwort auswählen",
-            q["o"]
+            options
         )
 
-    # =========================================
-    # TRUE / FALSE
-    # =========================================
+    # =====================================================
+    # TRUE FALSE
+    # =====================================================
 
     elif isinstance(q["a"], bool):
 
@@ -504,9 +443,9 @@ else:
             ["Wahr","Falsch"]
         )
 
-    # =========================================
-    # NUMBER INPUT
-    # =========================================
+    # =====================================================
+    # NUMBER
+    # =====================================================
 
     else:
 
@@ -523,28 +462,15 @@ else:
 
         correct = False
 
-        # =====================================
-        # MULTIPLE CHOICE
-        # =====================================
-
         if "o" in q:
 
             correct = answer == q["a"]
-
-        # =====================================
-        # TRUE / FALSE
-        # =====================================
 
         elif isinstance(q["a"], bool):
 
             correct = (
                 (answer == "Wahr") == q["a"]
             )
-
-        # =====================================
-        # NUMBER QUESTION
-        # +- 10%
-        # =====================================
 
         else:
 
@@ -554,9 +480,9 @@ else:
                 abs(answer - q["a"]) <= tolerance
             )
 
-        # =====================================
+        # =================================================
         # RESULT
-        # =====================================
+        # =================================================
 
         if correct:
 
@@ -565,10 +491,6 @@ else:
             ] += 1
 
             st.session_state.msg = "✅ +1 Punkt!"
-
-            # =================================
-            # WINNER CHECK
-            # =================================
 
             if (
                 st.session_state.scores[
@@ -585,11 +507,14 @@ else:
                 f"❌ Falsch! Richtige Antwort: {q['a']}"
             )
 
-        # =====================================
-        # NEXT PLAYER
-        # =====================================
+        # =================================================
+        # NEXT TURN
+        # =================================================
 
         st.session_state.q = None
+
+        if "reduced_options" in st.session_state:
+            del st.session_state.reduced_options
 
         st.session_state.turn = (
             st.session_state.turn + 1
@@ -598,7 +523,7 @@ else:
         st.rerun()
 
     # =====================================================
-    # WINNER SCREEN
+    # WINNER
     # =====================================================
 
     if st.session_state.winner:
@@ -610,16 +535,6 @@ else:
             <div class='title'>
             🏆 {st.session_state.winner} GEWINNT!
             </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.markdown(
-            f"""
-            <h2 style='text-align:center'>
-            Ziel erreicht:
-            {st.session_state.max_points} Punkte
-            </h2>
             """,
             unsafe_allow_html=True
         )
