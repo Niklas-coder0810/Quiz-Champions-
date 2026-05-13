@@ -1,108 +1,579 @@
-# questions.json
-
-```json
 [
-  {"q":"Welches chemische Element hat das Symbol Au?","o":["Silber","Gold","Kupfer","Eisen"],"a":"Gold"},
-  {"q":"Wer schrieb Faust?","o":["Schiller","Goethe","Kafka","Brecht"],"a":"Goethe"},
-  {"q":"Wie heißt der längste Fluss Europas?","o":["Donau","Rhein","Wolga","Elbe"],"a":"Wolga"},
-  {"q":"Welche Einheit misst elektrischen Widerstand?","o":["Volt","Watt","Ohm","Ampere"],"a":"Ohm"},
-  {"q":"Wie viele Chromosomen besitzt ein Mensch normalerweise?","o":["44","45","46","48"],"a":"46"},
-  {"q":"Wer entwickelte die Relativitätstheorie?","o":["Newton","Tesla","Einstein","Darwin"],"a":"Einstein"},
-  {"q":"Welche Sprache hat weltweit die meisten Muttersprachler?","o":["Englisch","Spanisch","Mandarin","Hindi"],"a":"Mandarin"},
-  {"q":"Welcher Kontinent hat die meisten Einwohner?","o":["Europa","Afrika","Asien","Nordamerika"],"a":"Asien"},
-  {"q":"Welches Organ produziert Insulin?","o":["Herz","Leber","Bauchspeicheldrüse","Niere"],"a":"Bauchspeicheldrüse"},
-  {"q":"Wer malte die Mona Lisa?","o":["Van Gogh","Da Vinci","Picasso","Michelangelo"],"a":"Da Vinci"},
-  {"q":"Welches Land gewann die Fußball-WM 2014?","o":["Brasilien","Deutschland","Argentinien","Frankreich"],"a":"Deutschland"},
-  {"q":"Wie lautet die chemische Formel von Wasser?","o":["CO2","H2O","NaCl","O2"],"a":"H2O"},
-  {"q":"Welcher Planet ist der größte?","o":["Mars","Jupiter","Venus","Saturn"],"a":"Jupiter"},
-  {"q":"Wie viele Spieler stehen beim Basketball pro Team auf dem Feld?","o":["4","5","6","7"],"a":"5"},
-  {"q":"Wer war der erste Mensch auf dem Mond?","o":["Yuri Gagarin","Buzz Aldrin","Neil Armstrong","Collins"],"a":"Neil Armstrong"},
-  {"q":"Welches Land hat die meisten Einwohner?","o":["China","USA","Indien","Russland"],"a":"Indien"},
-  {"q":"Welche Farbe entsteht aus Blau und Gelb?","o":["Grün","Rot","Lila","Orange"],"a":"Grün"},
-  {"q":"Wie viele Seiten hat ein Würfel?","o":["4","6","8","12"],"a":"6"},
-  {"q":"Welche Stadt ist die Hauptstadt von Kanada?","o":["Toronto","Vancouver","Ottawa","Montreal"],"a":"Ottawa"},
-  {"q":"Welches Metall ist flüssig bei Raumtemperatur?","o":["Gold","Kupfer","Quecksilber","Silber"],"a":"Quecksilber"},
-  {"q":"Wie viele Herzen hat ein Oktopus?","o":["1","2","3","4"],"a":"3"},
-  {"q":"Welche Zahl ist eine Primzahl?","o":["21","27","29","35"],"a":"29"},
-  {"q":"Wie heißt der höchste Berg der Erde?","o":["K2","Mont Blanc","Everest","Matterhorn"],"a":"Everest"},
-  {"q":"Wer schrieb Harry Potter?","o":["Tolkien","Rowling","King","Meyer"],"a":"Rowling"},
-  {"q":"Wie viele Kontinente gibt es?","o":["5","6","7","8"],"a":"7"},
-  {"q":"Welches Gas benötigen Menschen zum Atmen?","o":["Helium","Sauerstoff","Wasserstoff","Stickstoff"],"a":"Sauerstoff"},
-  {"q":"Wie viele Minuten hat ein Tag?","o":["720","1240","1440","1600"],"a":"1440"},
-  {"q":"Welche Währung gibt es in Japan?","o":["Won","Yuan","Yen","Dollar"],"a":"Yen"},
-  {"q":"Wer komponierte die 9. Sinfonie?","o":["Mozart","Beethoven","Bach","Chopin"],"a":"Beethoven"},
-  {"q":"Wie viele Planeten hat unser Sonnensystem?","o":["7","8","9","10"],"a":"8"},
-
-  {"q":"Die Sonne ist ein Stern.","a":true},
-  {"q":"Der Mensch besitzt 206 Knochen.","a":true},
-  {"q":"Pinguine können fliegen.","a":false},
-  {"q":"Wasser gefriert bei 0 Grad Celsius.","a":true},
-  {"q":"Der Mount Everest ist der höchste Berg der Erde.","a":true},
-  {"q":"Blitze sind heißer als die Sonne.","a":true},
-  {"q":"Haie sind Säugetiere.","a":false},
-  {"q":"Australien ist ein Kontinent.","a":true},
-  {"q":"Der Amazonas ist der längste Fluss der Welt.","a":false},
-  {"q":"Der Mensch hat drei Herzen.","a":false},
-
-  {"q":"Wie viele Knochen hat ein erwachsener Mensch?","a":206},
-  {"q":"Wie hoch ist der Eiffelturm ungefähr in Metern?","a":330},
-  {"q":"Wie viele Tasten besitzt ein klassisches Klavier?","a":88},
-  {"q":"Wie viele Länder grenzen an Deutschland?","a":9},
-  {"q":"Wie viele Sekunden hat eine Stunde?","a":3600},
-  {"q":"Wie viele Zähne hat ein Erwachsener normalerweise?","a":32},
-  {"q":"Wie viele Farben hat ein Regenbogen?","a":7},
-  {"q":"Wie viele Spieler stehen insgesamt bei einem Fußballspiel auf dem Feld?","a":22},
-  {"q":"Wie viele Liter Blut hat ein Erwachsener ungefähr?","a":5},
-  {"q":"Wie alt wurde Albert Einstein?","a":76},
-
-  {"q":"Welche Stadt wird auch Big Apple genannt?","o":["Los Angeles","New York","Chicago","Boston"],"a":"New York"},
-  {"q":"Wie nennt man Tiere, die nur Pflanzen fressen?","o":["Carnivoren","Omnivoren","Herbivoren","Insektenfresser"],"a":"Herbivoren"},
-  {"q":"Welches Land hat die Form eines Stiefels?","o":["Portugal","Italien","Griechenland","Chile"],"a":"Italien"},
-  {"q":"Welche Farbe hat Chlorophyll?","o":["Rot","Gelb","Grün","Blau"],"a":"Grün"},
-  {"q":"Wie heißt der größte Ozean?","o":["Atlantik","Pazifik","Indischer","Arktischer"],"a":"Pazifik"},
-  {"q":"Welche Zahl ist die Quadratwurzel von 81?","o":["7","8","9","10"],"a":"9"},
-  {"q":"Wie heißt das größte Organ des Menschen?","o":["Leber","Lunge","Haut","Herz"],"a":"Haut"},
-  {"q":"Welche Stadt liegt an der Themse?","o":["Paris","London","Rom","Wien"],"a":"London"},
-  {"q":"Wer erfand das Telefon?","o":["Bell","Edison","Tesla","Newton"],"a":"Bell"},
-  {"q":"Wie viele Nullen hat eine Million?","o":["5","6","7","8"],"a":"6"}
+  {
+    "q": "Welcher Planet ist der Sonne am nächsten?",
+    "o": ["Venus", "Mars", "Merkur", "Jupiter"],
+    "a": "Merkur"
+  },
+  {
+    "q": "Wie viele Minuten hat eine Stunde?",
+    "a": 60
+  },
+  {
+    "q": "Die Hauptstadt von Kanada ist Ottawa.",
+    "a": true
+  },
+  {
+    "q": "Welches Element hat das chemische Symbol O?",
+    "o": ["Gold", "Osmium", "Sauerstoff", "Silber"],
+    "a": "Sauerstoff"
+  },
+  {
+    "q": "Wie viele Kontinente gibt es auf der Erde?",
+    "a": 7
+  },
+  {
+    "q": "Ein Schaltjahr hat 366 Tage.",
+    "a": true
+  },
+  {
+    "q": "Welcher Ozean ist der größte?",
+    "o": ["Atlantik", "Pazifik", "Indischer Ozean", "Arktischer Ozean"],
+    "a": "Pazifik"
+  },
+  {
+    "q": "Wie viele Bundesländer hat Deutschland?",
+    "a": 16
+  },
+  {
+    "q": "Die Lichtgeschwindigkeit ist schneller als der Schall.",
+    "a": true
+  },
+  {
+    "q": "Wer malte die Mona Lisa?",
+    "o": ["Picasso", "Da Vinci", "Van Gogh", "Michelangelo"],
+    "a": "Da Vinci"
+  },
+  {
+    "q": "Wie viele Beine hat eine Spinne?",
+    "a": 8
+  },
+  {
+    "q": "Der Mount Everest ist der höchste Berg der Welt.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier wird als König der Tiere bezeichnet?",
+    "o": ["Tiger", "Elefant", "Löwe", "Leopard"],
+    "a": "Löwe"
+  },
+  {
+    "q": "Wie viele Sekunden hat eine Minute?",
+    "a": 60
+  },
+  {
+    "q": "Wasser gefriert bei 0 Grad Celsius.",
+    "a": true
+  },
+  {
+    "q": "Welches Land gewann die Fußball-WM 2014?",
+    "o": ["Brasilien", "Argentinien", "Deutschland", "Spanien"],
+    "a": "Deutschland"
+  },
+  {
+    "q": "Wie viele Planeten hat unser Sonnensystem?",
+    "a": 8
+  },
+  {
+    "q": "Ein Oktagon hat acht Seiten.",
+    "a": true
+  },
+  {
+    "q": "Welches Instrument hat schwarze und weiße Tasten?",
+    "o": ["Geige", "Klavier", "Trompete", "Flöte"],
+    "a": "Klavier"
+  },
+  {
+    "q": "Wie viele Spieler stehen bei einer Fußballmannschaft gleichzeitig auf dem Feld?",
+    "a": 11
+  },
+  {
+    "q": "Der Amazonas ist der längste Fluss der Welt.",
+    "a": false
+  },
+  {
+    "q": "Welches Gas atmen Menschen hauptsächlich ein?",
+    "o": ["Sauerstoff", "Helium", "Stickstoff", "CO2"],
+    "a": "Sauerstoff"
+  },
+  {
+    "q": "Wie viele Stunden hat ein Tag?",
+    "a": 24
+  },
+  {
+    "q": "Bienen produzieren Honig.",
+    "a": true
+  },
+  {
+    "q": "Welche Farbe entsteht aus Blau und Gelb?",
+    "o": ["Rot", "Grün", "Lila", "Orange"],
+    "a": "Grün"
+  },
+  {
+    "q": "Wie viele Zähne hat ein erwachsener Mensch normalerweise?",
+    "a": 32
+  },
+  {
+    "q": "Der Eiffelturm steht in Paris.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier kann am höchsten springen?",
+    "o": ["Känguru", "Floh", "Katze", "Hase"],
+    "a": "Floh"
+  },
+  {
+    "q": "Wie viele Farben hat ein Regenbogen?",
+    "a": 7
+  },
+  {
+    "q": "Die Erde ist flach.",
+    "a": false
+  },
+  {
+    "q": "Welcher Kontinent ist der kleinste?",
+    "o": ["Europa", "Australien", "Antarktika", "Südamerika"],
+    "a": "Australien"
+  },
+  {
+    "q": "Wie viele Knochen hat ein erwachsener Mensch ungefähr?",
+    "a": 206
+  },
+  {
+    "q": "Pinguine können fliegen.",
+    "a": false
+  },
+  {
+    "q": "Welches Land hat die Form eines Stiefels?",
+    "o": ["Spanien", "Portugal", "Italien", "Griechenland"],
+    "a": "Italien"
+  },
+  {
+    "q": "Wie viele Tage hat ein normales Jahr?",
+    "a": 365
+  },
+  {
+    "q": "Der Mensch hat fünf Sinne.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier ist das größte Landtier?",
+    "o": ["Nilpferd", "Elefant", "Nashorn", "Giraffe"],
+    "a": "Elefant"
+  },
+  {
+    "q": "Wie viele Saiten hat eine klassische Gitarre?",
+    "a": 6
+  },
+  {
+    "q": "Ein Dreieck hat drei Ecken.",
+    "a": true
+  },
+  {
+    "q": "Welches Land ist bekannt für Sushi?",
+    "o": ["China", "Thailand", "Japan", "Korea"],
+    "a": "Japan"
+  },
+  {
+    "q": "Wie viele Spieler hat ein Basketballteam auf dem Feld?",
+    "a": 5
+  },
+  {
+    "q": "Die Sonne ist ein Planet.",
+    "a": false
+  },
+  {
+    "q": "Welches Organ pumpt Blut durch den Körper?",
+    "o": ["Lunge", "Herz", "Leber", "Magen"],
+    "a": "Herz"
+  },
+  {
+    "q": "Wie viele Wochen hat ein Jahr ungefähr?",
+    "a": 52
+  },
+  {
+    "q": "Schlangen haben keine Beine.",
+    "a": true
+  },
+  {
+    "q": "Welche Sprache wird in Brasilien hauptsächlich gesprochen?",
+    "o": ["Spanisch", "Englisch", "Portugiesisch", "Französisch"],
+    "a": "Portugiesisch"
+  },
+  {
+    "q": "Wie viele Monde hat die Erde?",
+    "a": 1
+  },
+  {
+    "q": "Gold ist schwerer als Wasser.",
+    "a": true
+  },
+  {
+    "q": "Welcher Planet ist für seine Ringe bekannt?",
+    "o": ["Mars", "Venus", "Saturn", "Neptun"],
+    "a": "Saturn"
+  },
+  {
+    "q": "Wie viele Liter hat ein Kubikmeter Wasser?",
+    "a": 1000
+  },
+  {
+    "q": "Ein Wal ist ein Säugetier.",
+    "a": true
+  },
+  {
+    "q": "Welcher Kontinent hat die meisten Einwohner?",
+    "o": ["Europa", "Afrika", "Asien", "Amerika"],
+    "a": "Asien"
+  },
+  {
+    "q": "Wie viele Herzen hat ein Oktopus?",
+    "a": 3
+  },
+  {
+    "q": "Menschen können ohne Schlaf unbegrenzt leben.",
+    "a": false
+  },
+  {
+    "q": "Welches Metall ist flüssig bei Raumtemperatur?",
+    "o": ["Gold", "Silber", "Quecksilber", "Kupfer"],
+    "a": "Quecksilber"
+  },
+  {
+    "q": "Wie viele Tasten hat ein Standardklavier?",
+    "a": 88
+  },
+  {
+    "q": "Der Nordpol liegt in der Antarktis.",
+    "a": false
+  },
+  {
+    "q": "Welches Tier ist das schnellste an Land?",
+    "o": ["Pferd", "Leopard", "Gepard", "Tiger"],
+    "a": "Gepard"
+  },
+  {
+    "q": "Wie viele Planeten sind größer als die Erde?",
+    "a": 4
+  },
+  {
+    "q": "Ein Jahrhundert hat 100 Jahre.",
+    "a": true
+  },
+  {
+    "q": "Welches Land hat die meisten Einwohner?",
+    "o": ["USA", "Indien", "China", "Russland"],
+    "a": "Indien"
+  },
+  {
+    "q": "Wie viele Nullen hat eine Million?",
+    "a": 6
+  },
+  {
+    "q": "Ein Quadrat hat vier gleich lange Seiten.",
+    "a": true
+  },
+  {
+    "q": "Welcher Planet wird roter Planet genannt?",
+    "o": ["Venus", "Mars", "Jupiter", "Saturn"],
+    "a": "Mars"
+  },
+  {
+    "q": "Wie viele Chromosomen hat ein Mensch normalerweise?",
+    "a": 46
+  },
+  {
+    "q": "Die Titanic sank 1912.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier legt Eier?",
+    "o": ["Hund", "Katze", "Huhn", "Pferd"],
+    "a": "Huhn"
+  },
+  {
+    "q": "Wie viele Millimeter sind ein Zentimeter?",
+    "a": 10
+  },
+  {
+    "q": "Elektrizität kann gefährlich sein.",
+    "a": true
+  },
+  {
+    "q": "Welche Farbe hat Smaragd typischerweise?",
+    "o": ["Blau", "Grün", "Rot", "Gelb"],
+    "a": "Grün"
+  },
+  {
+    "q": "Wie viele Tage hat der Februar in einem Schaltjahr?",
+    "a": 29
+  },
+  {
+    "q": "Die Erde dreht sich um die Sonne.",
+    "a": true
+  },
+  {
+    "q": "Welcher Vogel kann nicht fliegen?",
+    "o": ["Adler", "Pinguin", "Falke", "Spatz"],
+    "a": "Pinguin"
+  },
+  {
+    "q": "Wie viele Augen hat ein Mensch normalerweise?",
+    "a": 2
+  },
+  {
+    "q": "Schokolade ist giftig für viele Hunde.",
+    "a": true
+  },
+  {
+    "q": "Welches Land ist für Pizza bekannt?",
+    "o": ["Frankreich", "Italien", "Spanien", "Belgien"],
+    "a": "Italien"
+  },
+  {
+    "q": "Wie viele Seiten hat ein Hexagon?",
+    "a": 6
+  },
+  {
+    "q": "Blitze sind heißer als die Oberfläche der Sonne.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier ist bekannt für seinen langen Hals?",
+    "o": ["Kamel", "Pferd", "Giraffe", "Zebra"],
+    "a": "Giraffe"
+  },
+  {
+    "q": "Wie viele Monate haben 31 Tage?",
+    "a": 7
+  },
+  {
+    "q": "Menschen atmen Kohlendioxid aus.",
+    "a": true
+  },
+  {
+    "q": "Welche Sportart benutzt einen Schläger und Federball?",
+    "o": ["Tennis", "Squash", "Badminton", "Golf"],
+    "a": "Badminton"
+  },
+  {
+    "q": "Wie viele Meter sind ein Kilometer?",
+    "a": 1000
+  },
+  {
+    "q": "Ein Krokodil ist ein Reptil.",
+    "a": true
+  },
+  {
+    "q": "Welcher Planet ist der größte?",
+    "o": ["Saturn", "Mars", "Jupiter", "Neptun"],
+    "a": "Jupiter"
+  },
+  {
+    "q": "Wie viele Farben hat die deutsche Flagge?",
+    "a": 3
+  },
+  {
+    "q": "Ein Jahrtausend hat 1000 Jahre.",
+    "a": true
+  },
+  {
+    "q": "Welche Frucht ist gelb und krumm?",
+    "o": ["Apfel", "Birne", "Banane", "Pfirsich"],
+    "a": "Banane"
+  },
+  {
+    "q": "Wie viele Stunden hat eine Woche?",
+    "a": 168
+  },
+  {
+    "q": "Die Venus ist heißer als Merkur.",
+    "a": true
+  },
+  {
+    "q": "Welcher Kontinent liegt südlich von Europa?",
+    "o": ["Afrika", "Asien", "Australien", "Nordamerika"],
+    "a": "Afrika"
+  },
+  {
+    "q": "Wie viele Zentimeter hat ein Meter?",
+    "a": 100
+  },
+  {
+    "q": "Haie sind Fische.",
+    "a": true
+  },
+  {
+    "q": "Welches Land ist bekannt für Ahornsirup?",
+    "o": ["Kanada", "Mexiko", "Norwegen", "Schweden"],
+    "a": "Kanada"
+  },
+  {
+    "q": "Wie viele Stunden schläft ein Mensch durchschnittlich pro Tag ungefähr?",
+    "a": 8
+  },
+  {
+    "q": "Bananen wachsen auf Bäumen.",
+    "a": false
+  },
+  {
+    "q": "Welches Instrument hat Pedale?",
+    "o": ["Klavier", "Geige", "Trommel", "Flöte"],
+    "a": "Klavier"
+  },
+  {
+    "q": "Wie viele Buchstaben hat das deutsche Alphabet?",
+    "a": 26
+  },
+  {
+    "q": "Der Mensch besitzt zwei Lungenflügel.",
+    "a": true
+  },
+  {
+    "q": "Welcher Planet liegt zwischen Erde und Jupiter?",
+    "o": ["Mars", "Venus", "Saturn", "Merkur"],
+    "a": "Mars"
+  },
+  {
+    "q": "Wie viele Karten hat ein normales Kartenspiel ohne Joker?",
+    "a": 52
+  },
+  {
+    "q": "Der Blauwal ist das größte Tier der Erde.",
+    "a": true
+  },
+  {
+    "q": "Welches Land hat die meisten Inseln?",
+    "o": ["Japan", "Schweden", "Indonesien", "Philippinen"],
+    "a": "Schweden"
+  },
+  {
+    "q": "Wie viele Finger hat ein Mensch normalerweise insgesamt?",
+    "a": 10
+  },
+  {
+    "q": "Der Mond produziert eigenes Licht.",
+    "a": false
+  },
+  {
+    "q": "Welche Farbe hat ein Stoppschild meistens?",
+    "o": ["Blau", "Rot", "Gelb", "Grün"],
+    "a": "Rot"
+  },
+  {
+    "q": "Wie viele Sekunden hat ein Tag?",
+    "a": 86400
+  },
+  {
+    "q": "Kaffee enthält Koffein.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier ist für seine Streifen bekannt?",
+    "o": ["Tiger", "Leopard", "Löwe", "Wolf"],
+    "a": "Tiger"
+  },
+  {
+    "q": "Wie viele Planeten haben Ringe?",
+    "a": 4
+  },
+  {
+    "q": "Mücken trinken Blut.",
+    "a": true
+  },
+  {
+    "q": "Welches Land hat die Form eines Hexagons auf seiner Flagge?",
+    "o": ["Nepal", "Schweiz", "Brasilien", "Argentinien"],
+    "a": "Nepal"
+  },
+  {
+    "q": "Wie viele Meter ist ein Marathon lang ungefähr?",
+    "a": 42195
+  },
+  {
+    "q": "Das Herz liegt links im Körper.",
+    "a": false
+  },
+  {
+    "q": "Welcher Planet ist der kälteste?",
+    "o": ["Uranus", "Mars", "Neptun", "Saturn"],
+    "a": "Uranus"
+  },
+  {
+    "q": "Wie viele Ziffern hat eine Telefonnummer in Deutschland meistens ohne Vorwahl ungefähr?",
+    "a": 7
+  },
+  {
+    "q": "Honig verdirbt praktisch nie.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier kann seine Farbe ändern?",
+    "o": ["Affe", "Chamäleon", "Hund", "Elefant"],
+    "a": "Chamäleon"
+  },
+  {
+    "q": "Wie viele Herzen hat ein Regenwurm?",
+    "a": 5
+  },
+  {
+    "q": "Ein Virus ist kleiner als eine Bakterie.",
+    "a": true
+  },
+  {
+    "q": "Welche Stadt wird Big Apple genannt?",
+    "o": ["Los Angeles", "Chicago", "New York", "Miami"],
+    "a": "New York"
+  },
+  {
+    "q": "Wie viele Liter Blut hat ein erwachsener Mensch ungefähr?",
+    "a": 5
+  },
+  {
+    "q": "Kamele speichern Wasser in ihren Höckern.",
+    "a": false
+  },
+  {
+    "q": "Welches Land hat die meisten Pyramiden?",
+    "o": ["Ägypten", "Sudan", "Mexiko", "Peru"],
+    "a": "Sudan"
+  },
+  {
+    "q": "Wie viele Beine hat ein Insekt?",
+    "a": 6
+  },
+  {
+    "q": "Der Mensch kann unter Wasser atmen.",
+    "a": false
+  },
+  {
+    "q": "Welches Organ reinigt das Blut?",
+    "o": ["Magen", "Leber", "Niere", "Lunge"],
+    "a": "Niere"
+  },
+  {
+    "q": "Wie viele Jahre dauerte der Hundertjährige Krieg ungefähr?",
+    "a": 116
+  },
+  {
+    "q": "Spinat enthält Eisen.",
+    "a": true
+  },
+  {
+    "q": "Welcher Planet braucht am längsten für eine Umrundung der Sonne?",
+    "o": ["Neptun", "Mars", "Jupiter", "Saturn"],
+    "a": "Neptun"
+  },
+  {
+    "q": "Wie viele Länder gibt es ungefähr auf der Erde?",
+    "a": 195
+  },
+  {
+    "q": "Fledermäuse sind blind.",
+    "a": false
+  },
+  {
+    "q": "Welche Farbe hat Chlorophyll?",
+    "o": ["Rot", "Grün", "Gelb", "Blau"],
+    "a": "Grün"
+  }
 ]
-```
-
-# WICHTIG
-
-Damit die Fragen-Datei funktioniert, muss dein Python-Code diese Zeilen enthalten:
-
-```python
-import json
-import random
-
-@st.cache_data
-
-def load_questions():
-    with open("questions.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    random.shuffle(data)
-    return data
-
-if "bank" not in st.session_state:
-    st.session_state.bank = load_questions()
-```
-
-Und deine Fragenauswahl muss so aussehen:
-
-```python
-if st.session_state.q is None:
-
-    remaining = [
-        q for q in st.session_state.bank
-        if q not in st.session_state.used_questions
-    ]
-
-    if len(remaining) == 0:
-        st.success("Alle Fragen gespielt!")
-        st.stop()
-
-    st.session_state.q = random.choice(remaining)
-    st.session_state.used_questions.append(st.session_state.q)
-```
