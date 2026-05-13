@@ -9,10 +9,11 @@ import json
 st.set_page_config(page_title="Quiz Battle", layout="wide")
 
 # =========================================================
-# SESSION STATE
+# STATE
 # =========================================================
 
 def init():
+
     defaults = {
         "started": False,
         "players": [],
@@ -20,7 +21,9 @@ def init():
         "turn": 0,
         "q": None,
         "msg": "",
-        "used_questions": []
+        "used_questions": [],
+        "max_points": 10,
+        "winner": None
     }
 
     for k, v in defaults.items():
@@ -30,22 +33,24 @@ def init():
 init()
 
 # =========================================================
-# LOAD QUESTIONS
+# 🔥 LOAD QUESTIONS FROM FILE
 # =========================================================
 
 @st.cache_data
 def load_questions():
+
     with open("questions.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
     random.shuffle(data)
+
     return data
 
 if "bank" not in st.session_state:
     st.session_state.bank = load_questions()
 
 # =========================================================
-# GET RANDOM UNUSED QUESTION
+# RANDOM UNUSED QUESTION
 # =========================================================
 
 def get_question():
@@ -61,12 +66,13 @@ def get_question():
     q = random.choice(available)
 
     index = st.session_state.bank.index(q)
+
     st.session_state.used_questions.append(index)
 
     return q
 
 # =========================================================
-# DESIGN
+# BACKGROUND DESIGN
 # =========================================================
 
 st.markdown("""
@@ -89,6 +95,13 @@ st.markdown("""
     font-size:70px;
     font-weight:900;
     text-shadow:0 0 25px #00ffd5;
+}
+
+.card {
+    background: rgba(255,255,255,0.12);
+    padding:25px;
+    border-radius:25px;
+    backdrop-filter: blur(15px);
 }
 
 .player-box {
@@ -122,6 +135,13 @@ st.markdown("""
     margin-bottom:20px;
 }
 
+.points {
+    text-align:center;
+    font-size:24px;
+    margin-top:10px;
+    color:#aaa;
+}
+
 button {
     border-radius:15px !important;
     height:60px !important;
@@ -130,11 +150,36 @@ button {
     color:black !important;
 }
 
+/* =========================================
+   BESSERE ANTWORT BUTTONS
+========================================= */
+
+div[data-testid="stRadio"] label {
+    background: rgba(255,255,255,0.12);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    border: 2px solid rgba(255,255,255,0.1);
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+div[data-testid="stRadio"] label:hover {
+    border: 2px solid #00ffd5;
+    box-shadow: 0 0 15px #00ffd5;
+    transform: scale(1.02);
+}
+
+div[data-testid="stRadio"] div {
+    gap: 15px;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # =========================================================
-# START SCREEN
+# START
 # =========================================================
 
 if not st.session_state.started:
@@ -144,7 +189,21 @@ if not st.session_state.started:
         unsafe_allow_html=True
     )
 
-    count = st.selectbox("Spieleranzahl", [1,2,3,4])
+    count = st.selectbox(
+        "Spieler",
+        [1,2,3,4]
+    )
+
+    # =========================================
+    # MAX POINTS
+    # =========================================
+
+    max_points = st.slider(
+        "🏆 Bis wie viele Punkte?",
+        1,
+        50,
+        10
+    )
 
     players = []
 
@@ -152,7 +211,7 @@ if not st.session_state.started:
 
         name = st.text_input(f"Spieler {i+1}")
 
-        if not name:
+        if name == "":
             name = f"Spieler {i+1}"
 
         players.append(name)
@@ -161,7 +220,8 @@ if not st.session_state.started:
 
         st.session_state.started = True
         st.session_state.players = players
-        st.session_state.scores = [0] * count
+        st.session_state.scores = [0]*count
+        st.session_state.max_points = max_points
 
         st.rerun()
 
@@ -171,43 +231,24 @@ if not st.session_state.started:
 
 else:
 
-    # =========================================
-    # NEW QUESTION
-    # =========================================
-
-    if st.session_state.q is None:
-        st.session_state.q = get_question()
+    player = st.session_state.players[
+        st.session_state.turn
+    ]
 
     # =========================================
-    # END GAME
+    # HOME BUTTON
     # =========================================
 
-    if st.session_state.q is None:
+    top1, top2 = st.columns([8,2])
 
-        st.title("🏁 Keine Fragen mehr!")
+    with top2:
 
-        winner_index = st.session_state.scores.index(
-            max(st.session_state.scores)
-        )
+        if st.button("🏠 Home"):
 
-        winner = st.session_state.players[winner_index]
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
 
-        st.success(f"🎉 Gewinner: {winner}")
-
-        st.write("Punkte:")
-
-        for i, p in enumerate(st.session_state.players):
-            st.write(f"{p}: {st.session_state.scores[i]}")
-
-        st.stop()
-
-    q = st.session_state.q
-
-    # =========================================
-    # PLAYER INFO
-    # =========================================
-
-    player = st.session_state.players[st.session_state.turn]
+            st.rerun()
 
     st.markdown(
         '<div class="title">🎯 QUIZ</div>',
@@ -219,9 +260,26 @@ else:
         unsafe_allow_html=True
     )
 
-    cols = st.columns(len(st.session_state.players))
+    # =========================================
+    # TARGET SCORE
+    # =========================================
 
-    for i, p in enumerate(st.session_state.players):
+    st.markdown(
+        f"""
+        <h3 style='text-align:center;color:white'>
+        🏆 Ziel: {st.session_state.max_points} Punkte
+        </h3>
+        """,
+        unsafe_allow_html=True
+    )
+
+    cols = st.columns(
+        len(st.session_state.players)
+    )
+
+    for i,p in enumerate(
+        st.session_state.players
+    ):
 
         style = (
             "player-box active"
@@ -230,14 +288,49 @@ else:
         )
 
         with cols[i]:
+
             st.markdown(
-                f"<div class='{style}'>{p}<br>{st.session_state.scores[i]} Punkte</div>",
+                f"""
+                <div class='{style}'>
+                {p}<br>
+                {st.session_state.scores[i]} Punkte
+                </div>
+                """,
                 unsafe_allow_html=True
             )
 
-    # =========================================
+    # =====================================================
     # QUESTION
+    # =====================================================
+
+    if st.session_state.q is None:
+        st.session_state.q = get_question()
+
+    q = st.session_state.q
+
     # =========================================
+    # NO QUESTIONS LEFT
+    # =========================================
+
+    if q is None:
+
+        st.markdown(
+            """
+            <div class='title'>
+            🏁 Keine Fragen mehr!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        if st.button("🔄 Neues Spiel"):
+
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+
+            st.rerun()
+
+        st.stop()
 
     st.markdown(
         f"<div class='question'>{q['q']}</div>",
@@ -246,41 +339,58 @@ else:
 
     answer = None
 
-    # Multiple Choice
+    # =========================================
+    # MULTIPLE CHOICE
+    # =========================================
+
     if "o" in q:
 
         answer = st.radio(
-            "Antwort",
+            "Antwort auswählen",
             q["o"]
         )
 
-    # True / False
+    # =========================================
+    # TRUE / FALSE
+    # =========================================
+
     elif isinstance(q["a"], bool):
 
         answer = st.radio(
-            "Antwort",
-            ["Wahr", "Falsch"]
+            "Antwort auswählen",
+            ["Wahr","Falsch"]
         )
 
-    # Number
+    # =========================================
+    # NUMBER INPUT
+    # =========================================
+
     else:
 
         answer = st.number_input(
-            "Antwort",
+            "Schätz deine Antwort",
             value=0.0
         )
 
-    # =========================================
-    # CHECK ANSWER
-    # =========================================
+    # =====================================================
+    # CHECK
+    # =====================================================
 
     if st.button("✅ Antwort bestätigen"):
 
         correct = False
 
+        # =====================================
+        # MULTIPLE CHOICE
+        # =====================================
+
         if "o" in q:
 
             correct = answer == q["a"]
+
+        # =====================================
+        # TRUE / FALSE
+        # =====================================
 
         elif isinstance(q["a"], bool):
 
@@ -288,12 +398,21 @@ else:
                 (answer == "Wahr") == q["a"]
             )
 
+        # =====================================
+        # NUMBER QUESTION
+        # +- 10%
+        # =====================================
+
         else:
 
-            correct = abs(answer - q["a"]) <= 0.1
+            tolerance = q["a"] * 0.1
+
+            correct = (
+                abs(answer - q["a"]) <= tolerance
+            )
 
         # =====================================
-        # POINTS
+        # RESULT
         # =====================================
 
         if correct:
@@ -302,7 +421,20 @@ else:
                 st.session_state.turn
             ] += 1
 
-            st.session_state.msg = "✅ Richtig!"
+            st.session_state.msg = "✅ +1 Punkt!"
+
+            # =================================
+            # WINNER CHECK
+            # =================================
+
+            if (
+                st.session_state.scores[
+                    st.session_state.turn
+                ]
+                >= st.session_state.max_points
+            ):
+
+                st.session_state.winner = player
 
         else:
 
@@ -311,20 +443,56 @@ else:
             )
 
         # =====================================
-        # NEXT TURN
+        # NEXT PLAYER
         # =====================================
+
+        st.session_state.q = None
 
         st.session_state.turn = (
             st.session_state.turn + 1
         ) % len(st.session_state.players)
 
-        st.session_state.q = None
-
         st.rerun()
 
-    # =========================================
-    # MESSAGE
-    # =========================================
+    # =====================================================
+    # WINNER SCREEN
+    # =====================================================
+
+    if st.session_state.winner:
+
+        st.balloons()
+
+        st.markdown(
+            f"""
+            <div class='title'>
+            🏆 {st.session_state.winner} GEWINNT!
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f"""
+            <h2 style='text-align:center'>
+            Ziel erreicht:
+            {st.session_state.max_points} Punkte
+            </h2>
+            """,
+            unsafe_allow_html=True
+        )
+
+        if st.button("🔄 Neues Spiel"):
+
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+
+            st.rerun()
+
+        st.stop()
+
+    # =====================================================
+    # FEEDBACK
+    # =====================================================
 
     if st.session_state.msg:
 
@@ -333,6 +501,16 @@ else:
             <h2 style='text-align:center'>
             {st.session_state.msg}
             </h2>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f"""
+            <div class='points'>
+            Aktuelle Punkte:
+            {st.session_state.scores}
+            </div>
             """,
             unsafe_allow_html=True
         )
