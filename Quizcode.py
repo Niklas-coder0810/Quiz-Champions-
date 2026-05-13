@@ -233,6 +233,95 @@ section[data-testid="stSidebar"] * {
 """, unsafe_allow_html=True)
 
 # =========================================================
+# BACKGROUND DESIGN
+# =========================================================
+
+st.markdown("""
+<style>
+
+.stApp {
+    background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: white;
+}
+
+.title {
+    text-align:center;
+    font-size:70px;
+    font-weight:900;
+    text-shadow:0 0 25px #00ffd5;
+}
+
+.card {
+    background: rgba(255,255,255,0.12);
+    padding:25px;
+    border-radius:25px;
+    backdrop-filter: blur(15px);
+}
+
+.player-box {
+    padding:15px;
+    border-radius:15px;
+    background: rgba(255,255,255,0.15);
+    text-align:center;
+    font-weight:bold;
+    color:white;
+    font-size:22px;
+    text-shadow:0 0 10px black;
+}
+
+.active {
+    border:2px solid #00ffd5;
+    box-shadow:0 0 20px #00ffd5;
+    transform: scale(1.05);
+}
+
+.question {
+    font-size:34px;
+    text-align:center;
+    padding:30px;
+    background: rgba(0,0,0,0.45);
+    border-radius:20px;
+    margin:20px 0;
+    color:white;
+    font-weight:bold;
+    text-shadow:0 0 10px black;
+}
+
+.turn {
+    text-align:center;
+    font-size:32px;
+    font-weight:900;
+    color:#00ffd5;
+    margin-bottom:20px;
+    text-shadow:0 0 10px black;
+}
+
+.points {
+    text-align:center;
+    font-size:24px;
+    margin-top:10px;
+    color:white;
+    font-weight:bold;
+    text-shadow:0 0 10px black;
+}
+
+button {
+    border-radius:15px !important;
+    height:60px !important;
+    font-weight:bold !important;
+    background: linear-gradient(90deg,#00ffd5,#0099ff) !important;
+    color:black !important;
+    font-size:18px !important;
+}
+
+# =========================================================
 # START
 # =========================================================
 
