@@ -175,11 +175,14 @@ div[data-testid="stRadio"] label {
     border-radius: 15px;
     margin-bottom: 12px;
     border: 2px solid rgba(255,255,255,0.2);
-    font-size: 22px;
-    font-weight: bold;
+    
+    /* 🔥 VERBESSERT FÜR LESBARKEIT */
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    text-shadow: 0 0 6px #000, 0 0 12px #000;
+
     transition: 0.3s;
-    color: white !important;
-    text-shadow: 0 0 10px black;
 }
 
 div[data-testid="stRadio"] label:hover {
@@ -187,6 +190,14 @@ div[data-testid="stRadio"] label:hover {
     box-shadow: 0 0 15px #00ffd5;
     transform: scale(1.02);
     background: rgba(255,255,255,0.22);
+}
+
+/* EXTRA FIX: sichtbarer Text innerhalb der Radio Buttons */
+div[data-testid="stRadio"] span {
+    color: white !important;
+    font-weight: 900 !important;
+    font-size: 24px !important;
+    text-shadow: 0 0 6px black, 0 0 12px black;
 }
 
 /* INPUT FIX */
