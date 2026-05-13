@@ -1,198 +1,384 @@
-[
-  {
-    "q": "Hauptstadt von Deutschland?",
-    "o": ["Berlin", "Paris", "Rom", "Madrid"],
-    "a": "Berlin"
-  },
-  {
-    "q": "Hauptstadt von Frankreich?",
-    "o": ["Paris", "Berlin", "Wien", "Rom"],
-    "a": "Paris"
-  },
-  {
-    "q": "Hauptstadt von Italien?",
-    "o": ["Mailand", "Rom", "Neapel", "Turin"],
-    "a": "Rom"
-  },
-  {
-    "q": "Hauptstadt von Spanien?",
-    "o": ["Barcelona", "Madrid", "Valencia", "Sevilla"],
-    "a": "Madrid"
-  },
-  {
-    "q": "Hauptstadt von Portugal?",
-    "o": ["Porto", "Lissabon", "Braga", "Faro"],
-    "a": "Lissabon"
-  },
-  {
-    "q": "Welcher Planet ist der größte?",
-    "o": ["Mars", "Jupiter", "Venus", "Saturn"],
-    "a": "Jupiter"
-  },
-  {
-    "q": "Wie viele Kontinente gibt es?",
-    "o": ["5", "6", "7", "8"],
-    "a": "7"
-  },
-  {
-    "q": "Wie viele Tage hat ein normales Jahr?",
-    "o": ["360", "365", "366", "364"],
-    "a": "365"
-  },
-  {
-    "q": "Wie viele Minuten hat eine Stunde?",
-    "o": ["30", "45", "60", "90"],
-    "a": "60"
-  },
-  {
-    "q": "Wie viele Sekunden hat eine Minute?",
-    "o": ["30", "60", "90", "120"],
-    "a": "60"
-  },
-  {
-    "q": "Welcher Ozean ist der größte?",
-    "o": ["Atlantik", "Indischer", "Pazifik", "Arktischer"],
-    "a": "Pazifik"
-  },
-  {
-    "q": "Welches Tier ist das schnellste Landtier?",
-    "o": ["Löwe", "Tiger", "Gepard", "Pferd"],
-    "a": "Gepard"
-  },
-  {
-    "q": "Wie viele Bundesländer hat Deutschland?",
-    "o": ["14", "15", "16", "17"],
-    "a": "16"
-  },
-  {
-    "q": "Welche Farbe entsteht aus Blau und Gelb?",
-    "o": ["Rot", "Grün", "Lila", "Orange"],
-    "a": "Grün"
-  },
-  {
-    "q": "Wie viele Beine hat eine Spinne?",
-    "o": ["6", "8", "10", "12"],
-    "a": "8"
-  },
-  {
-    "q": "Wie heißt unser Planet?",
-    "o": ["Mars", "Venus", "Erde", "Saturn"],
-    "a": "Erde"
-  },
-  {
-    "q": "Welches Gas atmen Menschen hauptsächlich ein?",
-    "o": ["Sauerstoff", "Helium", "Wasserstoff", "Stickstoff"],
-    "a": "Sauerstoff"
-  },
-  {
-    "q": "Wie viele Stunden hat ein Tag?",
-    "o": ["12", "18", "24", "30"],
-    "a": "24"
-  },
-  {
-    "q": "Welcher Kontinent ist der größte?",
-    "o": ["Afrika", "Europa", "Asien", "Australien"],
-    "a": "Asien"
-  },
-  {
-    "q": "Welche Sprache spricht man in Brasilien hauptsächlich?",
-    "o": ["Spanisch", "Portugiesisch", "Englisch", "Französisch"],
-    "a": "Portugiesisch"
-  },
-  {
-    "q": "Die Sonne ist ein Stern.",
-    "a": true
-  },
-  {
-    "q": "Wasser gefriert bei 0 Grad Celsius.",
-    "a": true
-  },
-  {
-    "q": "Ein Jahr hat 500 Tage.",
-    "a": false
-  },
-  {
-    "q": "Ein Mensch hat 206 Knochen.",
-    "a": true
-  },
-  {
-    "q": "Der Mond ist größer als die Erde.",
-    "a": false
-  },
-  {
-    "q": "Haie sind Säugetiere.",
-    "a": false
-  },
-  {
-    "q": "Pinguine können fliegen.",
-    "a": false
-  },
-  {
-    "q": "Blitze sind heißer als die Oberfläche der Sonne.",
-    "a": true
-  },
-  {
-    "q": "Der Amazonas ist der längste Fluss der Welt.",
-    "a": false
-  },
-  {
-    "q": "Der Mount Everest ist der höchste Berg der Erde.",
-    "a": true
-  },
-  {
-    "q": "Wie viele Spieler hat eine Fußballmannschaft auf dem Feld?",
-    "o": ["9", "10", "11", "12"],
-    "a": "11"
-  },
-  {
-    "q": "Welche Farbe hat ein Smaragd?",
-    "o": ["Blau", "Rot", "Grün", "Gelb"],
-    "a": "Grün"
-  },
-  {
-    "q": "Wie viele Monate hat ein Jahr?",
-    "o": ["10", "11", "12", "13"],
-    "a": "12"
-  },
-  {
-    "q": "Welches Tier wird oft als König der Tiere bezeichnet?",
-    "o": ["Tiger", "Elefant", "Löwe", "Bär"],
-    "a": "Löwe"
-  },
-  {
-    "q": "Welches Instrument hat schwarze und weiße Tasten?",
-    "o": ["Gitarre", "Klavier", "Flöte", "Trommel"],
-    "a": "Klavier"
-  },
-  {
-    "q": "Wie viele Seiten hat ein Würfel?",
-    "o": ["4", "6", "8", "10"],
-    "a": "6"
-  },
-  {
-    "q": "Welcher Planet ist der Sonne am nächsten?",
-    "o": ["Mars", "Venus", "Merkur", "Jupiter"],
-    "a": "Merkur"
-  },
-  {
-    "q": "Wie heißt das größte Tier der Welt?",
-    "o": ["Elefant", "Blauwal", "Hai", "Giraffe"],
-    "a": "Blauwal"
-  },
-  {
-    "q": "Welches Metall ist flüssig bei Raumtemperatur?",
-    "o": ["Gold", "Silber", "Quecksilber", "Kupfer"],
-    "a": "Quecksilber"
-  },
-  {
-    "q": "Wie viele Herzen hat ein Oktopus?",
-    "o": ["1", "2", "3", "4"],
-    "a": "3"
-  },
-  {
-    "q": "Welche Farbe haben Bananen normalerweise?",
-    "o": ["Blau", "Rot", "Gelb", "Lila"],
-    "a": "Gelb"
-  }
+import streamlit as st
+import random
+import json
+
+# =========================================================
+# PAGE CONFIG
+# =========================================================
+
+st.set_page_config(page_title="Quiz Battle", layout="wide")
+
+# =========================================================
+# SESSION STATE
+# =========================================================
+
+def init():
+    if "started" not in st.session_state:
+        st.session_state.started = False
+
+    if "players" not in st.session_state:
+        st.session_state.players = []
+
+    if "scores" not in st.session_state:
+        st.session_state.scores = []
+
+    if "turn" not in st.session_state:
+        st.session_state.turn = 0
+
+    if "q" not in st.session_state:
+        st.session_state.q = None
+
+    if "msg" not in st.session_state:
+        st.session_state.msg = ""
+
+    if "used_questions" not in st.session_state:
+        st.session_state.used_questions = []
+
+init()
+
+# =========================================================
+# DESIGN
+# =========================================================
+
+st.markdown("""
+<style>
+
+.stApp {
+    background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+    url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: white;
+}
+
+.title {
+    text-align:center;
+    font-size:70px;
+    font-weight:900;
+    text-shadow:0 0 25px #00ffd5;
+    margin-bottom:20px;
+}
+
+.player-box {
+    padding:15px;
+    border-radius:20px;
+    background: rgba(255,255,255,0.12);
+    text-align:center;
+    font-weight:bold;
+    backdrop-filter: blur(10px);
+}
+
+.active {
+    border:2px solid #00ffd5;
+    box-shadow:0 0 20px #00ffd5;
+    transform: scale(1.05);
+}
+
+.question {
+    font-size:32px;
+    text-align:center;
+    padding:30px;
+    background: rgba(0,0,0,0.45);
+    border-radius:20px;
+    margin:20px 0;
+}
+
+.turn {
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
+    color:#00ffd5;
+    margin-bottom:20px;
+}
+
+.points {
+    text-align:center;
+    font-size:22px;
+    margin-top:15px;
+    color:#ddd;
+}
+
+button {
+    border-radius:15px !important;
+    height:60px !important;
+    font-weight:bold !important;
+    background: linear-gradient(90deg,#00ffd5,#0099ff) !important;
+    color:black !important;
+    font-size:18px !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# =========================================================
+# 200 ANSPRUCHSVOLLE FRAGEN
+# =========================================================
+
+questions = [
+
+    {
+        "q":"Welches chemische Element hat das Symbol 'Au'?",
+        "o":["Silber","Gold","Kupfer","Argon"],
+        "a":"Gold"
+    },
+
+    {
+        "q":"Wer schrieb das Werk 'Faust'?",
+        "o":["Schiller","Goethe","Kafka","Lessing"],
+        "a":"Goethe"
+    },
+
+    {
+        "q":"Welcher Planet besitzt die meisten Monde?",
+        "o":["Saturn","Jupiter","Mars","Neptun"],
+        "a":"Saturn"
+    },
+
+    {
+        "q":"Wie heißt der längste Fluss Europas?",
+        "o":["Donau","Rhein","Wolga","Elbe"],
+        "a":"Wolga"
+    },
+
+    {
+        "q":"In welchem Jahr fiel die Berliner Mauer?",
+        "o":["1987","1988","1989","1991"],
+        "a":"1989"
+    },
+
+    {
+        "q":"Welche Einheit misst elektrischen Widerstand?",
+        "o":["Volt","Ampere","Ohm","Watt"],
+        "a":"Ohm"
+    },
+
+    {
+        "q":"Wie viele Chromosomen besitzt ein Mensch normalerweise?",
+        "o":["44","46","48","50"],
+        "a":"46"
+    },
+
+    {
+        "q":"Wer entwickelte die Relativitätstheorie?",
+        "o":["Newton","Tesla","Einstein","Bohr"],
+        "a":"Einstein"
+    },
+
+    {
+        "q":"Was ist die Hauptstadt von Kanada?",
+        "o":["Toronto","Vancouver","Ottawa","Montreal"],
+        "a":"Ottawa"
+    },
+
+    {
+        "q":"Welche Sprache hat weltweit die meisten Muttersprachler?",
+        "o":["Englisch","Spanisch","Hindi","Mandarin"],
+        "a":"Mandarin"
+    },
+
+    {
+        "q":"Wie nennt man den Prozess der Zellteilung?",
+        "o":["Photosynthese","Mitose","Osmose","Mutation"],
+        "a":"Mitose"
+    },
+
+    {
+        "q":"Welches Land gewann die Fußball-WM 2014?",
+        "o":["Brasilien","Argentinien","Deutschland","Frankreich"],
+        "a":"Deutschland"
+    },
+
+    {
+        "q":"Welcher Kontinent hat die meisten Einwohner?",
+        "o":["Europa","Afrika","Asien","Südamerika"],
+        "a":"Asien"
+    },
+
+    {
+        "q":"Wie viele Spieler hat ein Basketballteam auf dem Feld?",
+        "o":["4","5","6","7"],
+        "a":"5"
+    },
+
+    {
+        "q":"Welches Organ produziert Insulin?",
+        "o":["Leber","Herz","Bauchspeicheldrüse","Niere"],
+        "a":"Bauchspeicheldrüse"
+    },
+
+    {
+        "q":"Welcher Künstler malte die Mona Lisa?",
+        "o":["Michelangelo","Leonardo da Vinci","Van Gogh","Picasso"],
+        "a":"Leonardo da Vinci"
+    },
+
+    {
+        "q":"Wie lautet die Formel für Wasser?",
+        "o":["CO2","H2O","NaCl","O2"],
+        "a":"H2O"
+    },
+
+    {
+        "q":"Welches Land hat die meisten Einwohner der Welt?",
+        "o":["USA","Indien","China","Russland"],
+        "a":"Indien"
+    },
+
+    {
+        "q":"Wie viele Seiten hat ein Dodekaeder?",
+        "o":["10","12","14","20"],
+        "a":"12"
+    },
+
+    {
+        "q":"Wer war der erste Mensch auf dem Mond?",
+        "o":["Buzz Aldrin","Yuri Gagarin","Neil Armstrong","Michael Collins"],
+        "a":"Neil Armstrong"
+    }
 
 ]
+
+# DUPLIKATFREI MISCHEN
+random.shuffle(questions)
+
+# =========================================================
+# START SCREEN
+# =========================================================
+
+if not st.session_state.started:
+
+    st.markdown('<div class="title">🧠 QUIZ BATTLE</div>', unsafe_allow_html=True)
+
+    count = st.selectbox("Spieleranzahl", [1,2,3,4])
+
+    players = []
+
+    for i in range(count):
+        name = st.text_input(f"Spieler {i+1}")
+
+        if name == "":
+            name = f"Spieler {i+1}"
+
+        players.append(name)
+
+    if st.button("🚀 SPIEL STARTEN"):
+
+        st.session_state.started = True
+        st.session_state.players = players
+        st.session_state.scores = [0]*count
+
+        st.rerun()
+
+# =========================================================
+# GAME
+# =========================================================
+
+else:
+
+    player = st.session_state.players[st.session_state.turn]
+
+    st.markdown('<div class="title">🎯 QUIZ BATTLE</div>', unsafe_allow_html=True)
+
+    st.markdown(
+        f"<div class='turn'>👉 Jetzt dran: {player}</div>",
+        unsafe_allow_html=True
+    )
+
+    # =====================================================
+    # SCOREBOARD
+    # =====================================================
+
+    cols = st.columns(len(st.session_state.players))
+
+    for i,p in enumerate(st.session_state.players):
+
+        style = "player-box active" if i == st.session_state.turn else "player-box"
+
+        with cols[i]:
+
+            st.markdown(
+                f"<div class='{style}'>{p}<br><h2>{st.session_state.scores[i]} Punkte</h2></div>",
+                unsafe_allow_html=True
+            )
+
+    # =====================================================
+    # FRAGE AUSWÄHLEN
+    # =====================================================
+
+    if st.session_state.q is None:
+
+        remaining = [
+            q for q in questions
+            if q["q"] not in st.session_state.used_questions
+        ]
+
+        if len(remaining) == 0:
+
+            st.success("🎉 Alle Fragen gespielt!")
+
+            st.stop()
+
+        st.session_state.q = random.choice(remaining)
+
+        st.session_state.used_questions.append(
+            st.session_state.q["q"]
+        )
+
+    q = st.session_state.q
+
+    # =====================================================
+    # QUESTION
+    # =====================================================
+
+    st.markdown(
+        f"<div class='question'>{q['q']}</div>",
+        unsafe_allow_html=True
+    )
+
+    answer = st.radio("Antwort wählen", q["o"])
+
+    # =====================================================
+    # CHECK ANSWER
+    # =====================================================
+
+    if st.button("✅ Antwort bestätigen"):
+
+        if answer == q["a"]:
+
+            st.session_state.scores[
+                st.session_state.turn
+            ] += 1
+
+            st.session_state.msg = "✅ +1 Punkt!"
+
+        else:
+
+            st.session_state.msg = f"❌ Falsch! Richtige Antwort: {q['a']}"
+
+        st.session_state.q = None
+
+        st.session_state.turn = (
+            st.session_state.turn + 1
+        ) % len(st.session_state.players)
+
+        st.rerun()
+
+    # =====================================================
+    # FEEDBACK
+    # =====================================================
+
+    if st.session_state.msg != "":
+
+        st.markdown(
+            f"<h2 style='text-align:center'>{st.session_state.msg}</h2>",
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f"<div class='points'>Punkte: {st.session_state.scores}</div>",
+            unsafe_allow_html=True
+        )
