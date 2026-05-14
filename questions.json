@@ -575,9 +575,7 @@
     "q": "Welche Farbe hat Chlorophyll?",
     "o": ["Rot", "Grün", "Gelb", "Blau"],
     "a": "Grün"
-  }
-,
-
+  },
 {
   "q": "Welches Land hat die meisten offiziellen Amtssprachen?",
   "o": ["Indien", "Südafrika", "Bolivien", "Schweiz"],
