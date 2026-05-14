@@ -1052,4 +1052,386 @@
     "q": "Wie viele Karten hat ein Uno-Spiel normalerweise?",
     "a": 108
   }
-]
+,
+{
+  "q": "Welches Tier hat den höchsten Blutdruck?",
+  "o": ["Elefant", "Giraffe", "Blauwal", "Nashorn"],
+  "a": "Giraffe"
+},
+{
+  "q": "Honig wurde schon in ägyptischen Gräbern gefunden und war noch essbar.",
+  "a": true
+},
+{
+  "q": "Wie viele Herzen hat ein Seestern?",
+  "a": 0
+},
+{
+  "q": "Welches Land besitzt die meisten natürlichen Seen?",
+  "o": ["Russland", "Kanada", "Brasilien", "USA"],
+  "a": "Kanada"
+},
+{
+  "q": "Der kürzeste Krieg der Geschichte dauerte weniger als eine Stunde.",
+  "a": true
+},
+{
+  "q": "Welcher Planet hat den höchsten Vulkan im Sonnensystem?",
+  "o": ["Venus", "Mars", "Jupiter", "Merkur"],
+  "a": "Mars"
+},
+{
+  "q": "Wie viele Knochen besitzt eine Katze ungefähr?",
+  "a": 230
+},
+{
+  "q": "Oktopusse haben blaues Blut.",
+  "a": true
+},
+{
+  "q": "Welches Land hat die meisten aktiven Vulkane?",
+  "o": ["Japan", "Island", "Indonesien", "Chile"],
+  "a": "Indonesien"
+},
+{
+  "q": "Die Zunge ist der stärkste Muskel des menschlichen Körpers.",
+  "a": false
+},
+{
+  "q": "Welches Tier kann bis zu drei Jahre schlafen?",
+  "o": ["Bär", "Schnecke", "Faultier", "Frosch"],
+  "a": "Schnecke"
+},
+{
+  "q": "Wie viele Gehirne hat ein Blutegel?",
+  "a": 32
+},
+{
+  "q": "Ein Blitz ist heißer als Lava.",
+  "a": true
+},
+{
+  "q": "Welcher Vogel hat die größte Flügelspannweite?",
+  "o": ["Adler", "Albatros", "Kondor", "Pelikan"],
+  "a": "Albatros"
+},
+{
+  "q": "Wie viele Zungen hat ein Schmetterling?",
+  "a": 1
+},
+{
+  "q": "Bananen sind botanisch gesehen Beeren.",
+  "a": true
+},
+{
+  "q": "Welches Tier kann ohne Kopf mehrere Tage leben?",
+  "o": ["Spinne", "Kakerlake", "Schlange", "Skorpion"],
+  "a": "Kakerlake"
+},
+{
+  "q": "Wie viele Augen hat eine Biene?",
+  "a": 5
+},
+{
+  "q": "Der menschliche Magen erneuert seine Schleimhaut regelmäßig.",
+  "a": true
+},
+{
+  "q": "Welches Land hat die meisten Inseln der Welt?",
+  "o": ["Norwegen", "Schweden", "Indonesien", "Kanada"],
+  "a": "Schweden"
+},
+{
+  "q": "Wie viele Sekunden braucht Licht ungefähr von der Sonne zur Erde?",
+  "a": 500
+},
+{
+  "q": "Haie existierten bereits vor den Bäumen.",
+  "a": true
+},
+{
+  "q": "Welches Tier hat die stärkste Beißkraft?",
+  "o": ["Löwe", "Nilkrokodil", "Hai", "Hyäne"],
+  "a": "Nilkrokodil"
+},
+{
+  "q": "Wie viele Knochen hat ein Hai?",
+  "a": 0
+},
+{
+  "q": "Der menschliche Körper enthält Gold.",
+  "a": true
+},
+{
+  "q": "Welches Land hat die älteste noch bestehende Flagge?",
+  "o": ["Dänemark", "Frankreich", "England", "Spanien"],
+  "a": "Dänemark"
+},
+{
+  "q": "Wie viele Muskeln bewegt ein Mensch ungefähr beim Lächeln?",
+  "a": 17
+},
+{
+  "q": "Kängurus können nicht rückwärts laufen.",
+  "a": true
+},
+{
+  "q": "Welches Tier besitzt die größten Augen?",
+  "o": ["Wal", "Riesenkalmar", "Pferd", "Strauß"],
+  "a": "Riesenkalmar"
+},
+{
+  "q": "Wie viele Rippenpaare hat ein Mensch normalerweise?",
+  "a": 12
+},
+{
+  "q": "Einige Schildkröten können durch ihren Po atmen.",
+  "a": true
+},
+{
+  "q": "Welcher Kontinent bewegt sich am schnellsten?",
+  "o": ["Afrika", "Europa", "Australien", "Antarktika"],
+  "a": "Australien"
+},
+{
+  "q": "Wie viele Liter Speichel produziert ein Mensch pro Tag ungefähr?",
+  "a": 1
+},
+{
+  "q": "Das Gehirn selbst kann keinen Schmerz fühlen.",
+  "a": true
+},
+{
+  "q": "Welches Tier schläft am längsten pro Tag?",
+  "o": ["Faultier", "Katze", "Koala", "Fledermaus"],
+  "a": "Koala"
+},
+{
+  "q": "Wie viele Tage kann ein Mensch ungefähr ohne Schlaf auskommen?",
+  "a": 11
+},
+{
+  "q": "Wombats produzieren würfelförmigen Kot.",
+  "a": true
+},
+{
+  "q": "Welches Element ist das häufigste im Universum?",
+  "o": ["Helium", "Wasserstoff", "Sauerstoff", "Kohlenstoff"],
+  "a": "Wasserstoff"
+},
+{
+  "q": "Wie viele Zähne hat eine Schnecke ungefähr?",
+  "a": 14000
+},
+{
+  "q": "Kühe haben beste Freunde.",
+  "a": true
+},
+{
+  "q": "Welches Tier kann seinen Magen nach außen stülpen?",
+  "o": ["Krabbe", "Seestern", "Qualle", "Tintenfisch"],
+  "a": "Seestern"
+},
+{
+  "q": "Wie viele Stunden schläft eine Giraffe ungefähr pro Tag?",
+  "a": 2
+},
+{
+  "q": "Ein Tag auf der Venus ist länger als ein Venusjahr.",
+  "a": true
+},
+{
+  "q": "Welches Land hat mehr Schafe als Menschen?",
+  "o": ["Australien", "Neuseeland", "Mongolei", "Island"],
+  "a": "Neuseeland"
+},
+{
+  "q": "Wie viele Knochen besitzt ein menschliches Ohr?",
+  "a": 3
+},
+{
+  "q": "Einige Frösche können komplett einfrieren und überleben.",
+  "a": true
+},
+{
+  "q": "Welches Tier besitzt keinen Magen?",
+  "o": ["Pinguin", "Schnabeltier", "Seepferdchen", "Hai"],
+  "a": "Seepferdchen"
+},
+{
+  "q": "Wie viele Kilometer pro Stunde kann ein Gepard ungefähr erreichen?",
+  "a": 110
+},
+{
+  "q": "Der Eiffel­turm wird im Sommer etwas größer.",
+  "a": true
+},
+{
+  "q": "Welches Organ verbraucht am meisten Sauerstoff?",
+  "o": ["Herz", "Leber", "Gehirn", "Lunge"],
+  "a": "Gehirn"
+},
+{
+  "q": "Wie viele Augenlider hat ein Kamel pro Auge?",
+  "a": 3
+},
+{
+  "q": "Pferde können im Stehen schlafen.",
+  "a": true
+},
+{
+  "q": "Welches Land besitzt die meisten Pyramiden?",
+  "o": ["Ägypten", "Sudan", "Mexiko", "Peru"],
+  "a": "Sudan"
+},
+{
+  "q": "Wie viele Prozent der Erde sind mit Wasser bedeckt?",
+  "a": 71
+},
+{
+  "q": "Der Mond entfernt sich jedes Jahr etwas von der Erde.",
+  "a": true
+},
+{
+  "q": "Welches Tier hat Fingerabdrücke, die menschlichen sehr ähnlich sind?",
+  "o": ["Koala", "Affe", "Faultier", "Panda"],
+  "a": "Koala"
+},
+{
+  "q": "Wie viele Leben hat eine durchschnittliche rote Blutzelle in Tagen?",
+  "a": 120
+},
+{
+  "q": "Ketchup wurde früher als Medizin verkauft.",
+  "a": true
+},
+{
+  "q": "Welches Tier besitzt drei Herzen?",
+  "o": ["Wal", "Oktopus", "Hai", "Delfin"],
+  "a": "Oktopus"
+},
+{
+  "q": "Wie viele Knochen besitzt ein menschlicher Fuß?",
+  "a": 26
+},
+{
+  "q": "Es regnet auf der Venus Schwefelsäure.",
+  "a": true
+},
+{
+  "q": "Welcher Planet dreht sich rückwärts?",
+  "o": ["Mars", "Venus", "Saturn", "Merkur"],
+  "a": "Venus"
+},
+{
+  "q": "Wie viele Liter Luft atmet ein Mensch ungefähr pro Tag?",
+  "a": 11000
+},
+{
+  "q": "Tintenfische besitzen drei Herzen.",
+  "a": true
+},
+{
+  "q": "Welches Tier hat die längste Schwangerschaft?",
+  "o": ["Wal", "Elefant", "Giraffe", "Nashorn"],
+  "a": "Elefant"
+},
+{
+  "q": "Wie viele Geschmacksrichtungen kann die menschliche Zunge wahrnehmen?",
+  "a": 5
+},
+{
+  "q": "Die Erde ist nicht perfekt rund.",
+  "a": true
+},
+{
+  "q": "Welcher Kontinent besitzt keine aktiven Vulkane?",
+  "o": ["Afrika", "Australien", "Europa", "Südamerika"],
+  "a": "Australien"
+},
+{
+  "q": "Wie viele Sekunden dauert ein Wimpernschlag ungefähr?",
+  "a": 1
+},
+{
+  "q": "Einige Haie können im Dunkeln leuchten.",
+  "a": true
+},
+{
+  "q": "Welches Tier besitzt die größte Zunge im Verhältnis zum Körper?",
+  "o": ["Chamäleon", "Ameisenbär", "Frosch", "Giraffe"],
+  "a": "Chamäleon"
+},
+{
+  "q": "Wie viele Wirbel besitzt eine Giraffe im Hals?",
+  "a": 7
+},
+{
+  "q": "Der menschliche Körper produziert täglich neue Hautzellen.",
+  "a": true
+},
+{
+  "q": "Welches Land hat die meisten Nachbarländer?",
+  "o": ["Russland", "China", "Brasilien", "Deutschland"],
+  "a": "China"
+},
+{
+  "q": "Wie viele Meter tief ist der Marianengraben ungefähr?",
+  "a": 11000
+},
+{
+  "q": "Kamele haben drei Augenlider.",
+  "a": true
+},
+{
+  "q": "Welches Tier kann durch Glas hindurchlaufen?",
+  "o": ["Gecko", "Spinne", "Frosch", "Schlange"],
+  "a": "Gecko"
+},
+{
+  "q": "Wie viele Herzen hat ein Insekt?",
+  "a": 1
+},
+{
+  "q": "Einige Pilze können im Dunkeln leuchten.",
+  "a": true
+},
+{
+  "q": "Welcher Planet besitzt die stärksten Winde?",
+  "o": ["Jupiter", "Neptun", "Saturn", "Mars"],
+  "a": "Neptun"
+},
+{
+  "q": "Wie viele Knochen besitzt ein Baby ungefähr?",
+  "a": 300
+},
+{
+  "q": "Die Nase und Ohren wachsen ein Leben lang weiter.",
+  "a": true
+},
+{
+  "q": "Welches Tier hat die längste Zunge?",
+  "o": ["Giraffe", "Ameisenbär", "Blauwal", "Chamäleon"],
+  "a": "Blauwal"
+},
+{
+  "q": "Wie viele Stunden dauert ein Flug um die Erde ungefähr?",
+  "a": 48
+},
+{
+  "q": "Es gibt mehr Sterne im Universum als Sandkörner auf der Erde.",
+  "a": true
+},
+{
+  "q": "Welches Tier kann am längsten ohne Wasser überleben?",
+  "o": ["Kamel", "Kängururatte", "Schlange", "Skorpion"],
+  "a": "Kängururatte"
+},
+{
+  "q": "Wie viele Atemzüge macht ein Mensch pro Tag ungefähr?",
+  "a": 20000
+},
+{
+  "q": "Eine Wolke kann Millionen Tonnen wiegen.",
+  "a": true
+}
