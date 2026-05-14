@@ -835,8 +835,8 @@
 {
   "q": "Der Magen produziert Insulin.",
   "a": false
-}
-[
+},
+
   {
     "q": "Welches Land hat die größte Fläche der Welt?",
     "o": ["Kanada", "China", "Russland", "USA"],
