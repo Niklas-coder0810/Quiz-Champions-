@@ -1433,4 +1433,67 @@
   "q": "Eine Wolke kann Millionen Tonnen wiegen.",
   "a": true
 }
-]
+,
+{"q":"Welches Land hat die Hauptstadt Ulaanbaatar?","o":["Kasachstan","Mongolei","Kirgisistan","Tadschikistan"],"a":"Mongolei"},
+{"q":"Welche Stadt ist Hauptstadt von Bhutan?","o":["Thimphu","Kathmandu","Dhaka","Lhasa"],"a":"Thimphu"},
+{"q":"Welches Land hat die meisten Zeitzonen offiziell?","o":["USA","Frankreich","Russland","China"],"a":"Frankreich"},
+{"q":"Welches Meer ist das salzigste?","o":["Totes Meer","Schwarzes Meer","Rotes Meer","Kaspisches Meer"],"a":"Totes Meer"},
+{"q":"Welche Währung nutzt Japan?","o":["Yuan","Won","Yen","Dollar"],"a":"Yen"},
+{"q":"Welches Land hat die Hauptstadt Kigali?","o":["Uganda","Ruanda","Kenia","Burundi"],"a":"Ruanda"},
+{"q":"Welche Stadt liegt am Bosporus?","o":["Athen","Istanbul","Alexandria","Beirut"],"a":"Istanbul"},
+{"q":"Welcher Ozean ist der kleinste?","o":["Atlantik","Indischer Ozean","Arktischer Ozean","Pazifik"],"a":"Arktischer Ozean"},
+{"q":"Welche Sprache hat die meisten Muttersprachler weltweit?","o":["Englisch","Spanisch","Mandarin","Hindi"],"a":"Mandarin"},
+{"q":"Welches Land hat die Hauptstadt Lima?","o":["Chile","Peru","Bolivien","Ecuador"],"a":"Peru"},
+
+{"q":"Wie viele Meter ist der Mount Everest hoch (gerundet)?","a":8849},
+{"q":"Wie viele Kilometer ist der Amazonas ungefähr lang?","a":6400},
+{"q":"Wie viele Einwohner hat Indien ungefähr (in Milliarden)?","a":1.4},
+{"q":"Wie viele Länder gibt es in Europa ungefähr?","a":44},
+{"q":"Wie viele Knochen hat ein Baby ungefähr?","a":300},
+{"q":"Wie viele Sekunden hat ein Jahr ungefähr?","a":31536000},
+{"q":"Wie viele Liter Blut hat ein Mensch durchschnittlich?","a":5},
+{"q":"Wie viele Zähne hat ein Hai im Leben ungefähr?","a":30000},
+{"q":"Wie viele Muskeln hat der Mensch ungefähr?","a":650},
+{"q":"Wie viele Meter ist die Sahara breit (tausend km)?","a":4800},
+
+{"q":"Die Erde ist älter als 4 Milliarden Jahre.","a":true},
+{"q":"Der Jupiter ist ein Gesteinsplanet.","a":false},
+{"q":"Ein Tag auf dem Merkur ist länger als ein Jahr.","a":true},
+{"q":"Wasserstoff ist das häufigste Element im Universum.","a":true},
+{"q":"Der Mensch kann ohne Sauerstoff überleben.","a":false},
+
+{"q":"Welche Hauptstadt hat Kasachstan?","o":["Almaty","Astana","Bischkek","Tiflis"],"a":"Astana"},
+{"q":"Welches Land hat die meisten Nachbarländer?","o":["Russland","China","Brasilien","Deutschland"],"a":"China"},
+{"q":"Welcher Fluss fließt durch Kairo?","o":["Nil","Amazonas","Euphrat","Tigris"],"a":"Nil"},
+{"q":"Welche Stadt ist Hauptstadt von Neuseeland?","o":["Auckland","Wellington","Christchurch","Hamilton"],"a":"Wellington"},
+{"q":"Welches Land hat die Hauptstadt Hanoi?","o":["Thailand","Vietnam","Laos","Kambodscha"],"a":"Vietnam"},
+
+{"q":"Wie viele Kilometer ist der Erdumfang ungefähr?","a":40000},
+{"q":"Wie viele Länder gibt es in Afrika ungefähr?","a":54},
+{"q":"Wie viele Liter Wasser sind in einem Kubikkilometer?","a":1000000000000},
+{"q":"Wie viele Sekunden hat ein Tag?","a":86400},
+{"q":"Wie viele Menschen leben weltweit ungefähr (Milliarden)?","a":8},
+
+{"q":"Die Sahara ist die größte Wüste der Welt.","a":true},
+{"q":"Der Nil ist der längste Fluss der Welt.","a":false},
+{"q":"Gold ist ein Gas.","a":false},
+{"q":"Ein Blitz ist heißer als die Sonnenoberfläche.","a":true},
+{"q":"Der Mond hat eine Atmosphäre wie die Erde.","a":false},
+
+{"q":"Welche Hauptstadt hat Australien?","o":["Sydney","Canberra","Melbourne","Perth"],"a":"Canberra"},
+{"q":"Welches Land hat die Hauptstadt Ankara?","o":["Türkei","Griechenland","Iran","Irak"],"a":"Türkei"},
+{"q":"Welche Stadt ist Hauptstadt von Südafrika (administrativ)?","o":["Kapstadt","Pretoria","Johannesburg","Durban"],"a":"Pretoria"},
+{"q":"Welches Land hat die Hauptstadt Dhaka?","o":["Indien","Bangladesch","Nepal","Sri Lanka"],"a":"Bangladesch"},
+{"q":"Welcher Ozean liegt zwischen Afrika und Australien?","o":["Atlantik","Indischer Ozean","Pazifik","Arktis"],"a":"Indischer Ozean"},
+
+{"q":"Wie viele Planeten haben Ringe?","a":4},
+{"q":"Wie viele Kontinente gibt es (klassisch)?","a":7},
+{"q":"Wie viele Ozeane gibt es?","a":5},
+{"q":"Wie viele Länder hat die Erde ungefähr?","a":195},
+{"q":"Wie viele Minuten hat ein Jahr ungefähr?","a":525600},
+
+{"q":"Die Erde ist perfekt rund.","a":false},
+{"q":"Der Mensch hat 206 Knochen.","a":true},
+{"q":"Bäume produzieren Sauerstoff.","a":true},
+{"q":"Die Sonne ist ein Planet.","a":false},
+{"q":"Ein Jahr hat immer 365 Tage.","a":false}
