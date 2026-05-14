@@ -838,4 +838,218 @@
   "q": "Der Magen produziert Insulin.",
   "a": false
 }
-
+[
+  {
+    "q": "Welches Land hat die größte Fläche der Welt?",
+    "o": ["Kanada", "China", "Russland", "USA"],
+    "a": "Russland"
+  },
+  {
+    "q": "Die Chinesische Mauer ist vom Weltraum mit bloßem Auge sichtbar.",
+    "a": false
+  },
+  {
+    "q": "Wie viele Spieler hat ein Volleyballteam auf dem Feld?",
+    "a": 6
+  },
+  {
+    "q": "Welcher Planet hat die meisten bekannten Monde?",
+    "o": ["Saturn", "Jupiter", "Mars", "Neptun"],
+    "a": "Saturn"
+  },
+  {
+    "q": "Die Olympischen Spiele stammen aus Griechenland.",
+    "a": true
+  },
+  {
+    "q": "Welches Element hat das chemische Symbol Fe?",
+    "o": ["Fluor", "Eisen", "Fermium", "Francium"],
+    "a": "Eisen"
+  },
+  {
+    "q": "Wie viele Kontinente grenzen an den Pazifik?",
+    "a": 5
+  },
+  {
+    "q": "Der Rhein fließt durch Deutschland.",
+    "a": true
+  },
+  {
+    "q": "Welches Tier ist das größte Säugetier?",
+    "o": ["Elefant", "Blauwal", "Giraffe", "Orca"],
+    "a": "Blauwal"
+  },
+  {
+    "q": "Wie viele Minuten hat ein Tag?",
+    "a": 1440
+  },
+  {
+    "q": "Albert Einstein entwickelte die Relativitätstheorie.",
+    "a": true
+  },
+  {
+    "q": "Welcher Kontinent hat die meisten Länder?",
+    "o": ["Europa", "Afrika", "Asien", "Südamerika"],
+    "a": "Afrika"
+  },
+  {
+    "q": "Wie viele Saiten hat eine Violine?",
+    "a": 4
+  },
+  {
+    "q": "Der Mensch besitzt 206 Knochen.",
+    "a": true
+  },
+  {
+    "q": "Welches Land gewann die Fußball-WM 2018?",
+    "o": ["Deutschland", "Brasilien", "Frankreich", "Argentinien"],
+    "a": "Frankreich"
+  },
+  {
+    "q": "Wie viele Tage hat der Monat April?",
+    "a": 30
+  },
+  {
+    "q": "Die Sonne ist ein Stern.",
+    "a": true
+  },
+  {
+    "q": "Welches Organ produziert Galle?",
+    "o": ["Magen", "Leber", "Herz", "Niere"],
+    "a": "Leber"
+  },
+  {
+    "q": "Wie viele Farben befinden sich auf der Flagge Frankreichs?",
+    "a": 3
+  },
+  {
+    "q": "Ein Würfel hat 12 Kanten.",
+    "a": true
+  },
+  {
+    "q": "Welches Land ist für die Pyramiden von Gizeh bekannt?",
+    "o": ["Mexiko", "Ägypten", "Peru", "Jordanien"],
+    "a": "Ägypten"
+  },
+  {
+    "q": "Wie viele Herzen hat eine Qualle?",
+    "a": 0
+  },
+  {
+    "q": "Der Eiffelturm wurde im 19. Jahrhundert gebaut.",
+    "a": true
+  },
+  {
+    "q": "Welcher Planet hat den stärksten Sturm im Sonnensystem?",
+    "o": ["Mars", "Jupiter", "Venus", "Merkur"],
+    "a": "Jupiter"
+  },
+  {
+    "q": "Wie viele Milliliter sind ein Liter?",
+    "a": 1000
+  },
+  {
+    "q": "Bambus gehört zu den Gräsern.",
+    "a": true
+  },
+  {
+    "q": "Welche Stadt wird die Ewige Stadt genannt?",
+    "o": ["Athen", "Paris", "Rom", "Madrid"],
+    "a": "Rom"
+  },
+  {
+    "q": "Wie viele Felder hat ein Schachbrett?",
+    "a": 64
+  },
+  {
+    "q": "Der Mensch kann UV-Licht sehen.",
+    "a": false
+  },
+  {
+    "q": "Welches Gas nutzen Pflanzen hauptsächlich für die Photosynthese?",
+    "o": ["Sauerstoff", "Kohlenstoffdioxid", "Helium", "Wasserstoff"],
+    "a": "Kohlenstoffdioxid"
+  },
+  {
+    "q": "Wie viele Jahre hat ein Jahrzehnt?",
+    "a": 10
+  },
+  {
+    "q": "Pinguine leben nur am Südpol.",
+    "a": false
+  },
+  {
+    "q": "Welches Land hat die meisten Zeitzonen?",
+    "o": ["Russland", "USA", "Frankreich", "China"],
+    "a": "Frankreich"
+  },
+  {
+    "q": "Wie viele Zähne hat ein Hai im Laufe seines Lebens ungefähr?",
+    "a": 30000
+  },
+  {
+    "q": "Die Erde besitzt nur einen natürlichen Satelliten.",
+    "a": true
+  },
+  {
+    "q": "Welcher Planet dreht sich am schnellsten um sich selbst?",
+    "o": ["Mars", "Jupiter", "Saturn", "Neptun"],
+    "a": "Jupiter"
+  },
+  {
+    "q": "Wie viele Monate haben genau 30 Tage?",
+    "a": 4
+  },
+  {
+    "q": "Krokodile können ihre Zunge nicht herausstrecken.",
+    "a": true
+  },
+  {
+    "q": "Welches Metall wird für elektrische Kabel häufig verwendet?",
+    "o": ["Gold", "Kupfer", "Silber", "Eisen"],
+    "a": "Kupfer"
+  },
+  {
+    "q": "Wie viele Planeten gehören zu den Gasriesen?",
+    "a": 4
+  },
+  {
+    "q": "Der Amazonas fließt durch Brasilien.",
+    "a": true
+  },
+  {
+    "q": "Welches Land ist bekannt für Fjorde?",
+    "o": ["Spanien", "Norwegen", "Polen", "Belgien"],
+    "a": "Norwegen"
+  },
+  {
+    "q": "Wie viele Sekunden hat eine Stunde?",
+    "a": 3600
+  },
+  {
+    "q": "Ein Prisma hat immer rechteckige Seitenflächen.",
+    "a": false
+  },
+  {
+    "q": "Welches Tier ist das größte Reptil?",
+    "o": ["Komodowaran", "Krokodil", "Anakonda", "Schildkröte"],
+    "a": "Krokodil"
+  },
+  {
+    "q": "Wie viele Bundesstaaten haben die USA?",
+    "a": 50
+  },
+  {
+    "q": "Der Vatikan ist das kleinste Land der Welt.",
+    "a": true
+  },
+  {
+    "q": "Welcher Kontinent hat keine dauerhaft bewohnte Bevölkerung?",
+    "o": ["Afrika", "Antarktika", "Australien", "Europa"],
+    "a": "Antarktika"
+  },
+  {
+    "q": "Wie viele Karten hat ein Uno-Spiel normalerweise?",
+    "a": 108
+  }
+]
